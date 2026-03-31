@@ -1,0 +1,38 @@
+Row Type,Parent Product Class,Class,Name,Product Category,Product Subcategory,Parent Product,Qty,Weight,Total Sales,COGS
+Employee,,,"Boyer, Otto",,,,577.00,,3141.96,0.00
+Employee,,,atlasadmin,,,,25.00,,173.91,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,3x Coco Bites*,FOOD,Bakes,,1.00,,7.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Coco Bite*,FOOD,Bakes,,4.00,,10.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Cookie*,FOOD,Bakes,,2.00,,9.00,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha PB cup,FOOD,Bakes,,7.00,,26.00,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Snickers*,FOOD,Bakes,,9.00,,45.00,0.00
+Product,Extra Items,Extra Items,strawberry,,,,1.00,,0.50,0.00
+Product,Extra Items,Extra Items,syrup,,,,1.00,,0.50,0.00
+Product,Extra Items,Extra Items,vanilla,,,,1.00,,0.50,0.00
+Product,Unknown Class,Matcha Equipment,Bamboo Whisk*,SHOP,Matcha Equipment,,1.00,,12.49,0.00
+Product,Unknown Class,Matcha Powder,100g Pouch*,SHOP,Matcha Powder,,5.00,,199.95,0.00
+Product,Unknown Class,Matcha Powder,40g Tin*,SHOP,Matcha Powder,,4.00,,113.96,0.00
+Product,Unknown Class,Matcha,Hot Cacoa + Shrooms Latte*,DRINKS,HOT SPECIALS,,3.00,,13.74,0.00
+Product,Unknown Class,Matcha,Hot Flat Green*,DRINKS,HOT MATCHA,,9.00,,29.98,0.00
+Product,Unknown Class,Matcha,Hot Ginger + Turmeric Latte*,DRINKS,HOT SPECIALS,,5.00,,22.90,0.00
+Product,Unknown Class,Matcha,Hot Hojicha Latte*,DRINKS,HOT MATCHA,,3.00,,12.50,0.00
+Product,Unknown Class,Matcha,Hot Lavender + CBD Latte*,DRINKS,HOT SPECIALS,,2.00,,9.16,0.00
+Product,Unknown Class,Matcha,Hot Matcha Latte*,DRINKS,HOT MATCHA,,22.00,,87.10,0.00
+Product,Unknown Class,Matcha,Hot Matchacano*,DRINKS,HOT MATCHA,,4.00,,11.68,0.00
+Product,Unknown Class,Matcha,Hot Rose + Collagen Latte*,DRINKS,HOT SPECIALS,,4.00,,19.16,0.00
+Product,Unknown Class,Matcha,Iced Blackberry Matcha Latte,DRINKS,ICED SPECIALS,,106.00,,592.00,0.00
+Product,Unknown Class,Matcha,Iced Cacoa + Shrooms Latte*,DRINKS,ICED SPECIALS,,26.00,,146.00,0.00
+Product,Unknown Class,Matcha,Iced Chai Matcha Latte*,DRINKS,ICED MATCHA,,4.00,,21.50,0.00
+Product,Unknown Class,Matcha,Iced Flat Green*,DRINKS,ICED MATCHA,,20.00,,83.00,0.00
+Product,Unknown Class,Matcha,Iced Ginger + Turmeric Latte*,DRINKS,ICED SPECIALS,,24.00,,133.50,0.00
+Product,Unknown Class,Matcha,Iced Hojicha Latte*,DRINKS,ICED MATCHA,,8.00,,36.00,0.00
+Product,Unknown Class,Matcha,Iced Lavender + CBD Latte*,DRINKS,ICED SPECIALS,,63.00,,352.00,0.00
+Product,Unknown Class,Matcha,Iced Matcha Latte*,DRINKS,ICED MATCHA,,165.00,,786.00,0.00
+Product,Unknown Class,Matcha,Iced Matchacano*,DRINKS,ICED MATCHA,,19.00,,69.50,0.00
+Product,Unknown Class,Matcha,Iced Rose + Collagen Latte*,DRINKS,ICED SPECIALS,,53.00,,310.00,0.00
+Product,Unknown Class,Matcha,Iced Yuzu + Honey Matcha Tea*,DRINKS,ICED MATCHA,,12.00,,54.00,0.00
+Product,Unknown Class,Other,Carton Still Water*,WATER,Drinks,,1.00,,1.25,0.00
+Product,Unknown Class,Shakes,Berries + Collagen Shake*,DRINKS,SHAKE,,4.00,,30.00,0.00
+Product,Unknown Class,Shakes,Greens + Matcha Shake*,DRINKS,SHAKE,,3.00,,24.00,0.00
+Product,Unknown Class,Shakes,Peanut Butter Cacao + Protein Shake*,DRINKS,SHAKE,,3.00,,22.50,0.00
+Product,Unknown Class,Shakes,Vanilla Cashew + Protein Shake*,DRINKS,SHAKE,,3.00,,22.50,0.00

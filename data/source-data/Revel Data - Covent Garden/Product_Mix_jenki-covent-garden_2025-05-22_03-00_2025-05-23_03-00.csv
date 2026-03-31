@@ -1,0 +1,33 @@
+Row Type,Parent Product Class,Class,Name,Product Category,Product Subcategory,Parent Product,Qty,Weight,Total Sales,COGS
+Employee,,,"Boyer, Otto",,,,459.00,,2558.98,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,3x Coco Bites*,FOOD,Bakes,,1.00,,7.00,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Coco Bites*,FOOD,Bakes,,8.00,,20.00,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Cookie*,FOOD,Bakes,,5.00,,22.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Snickers*,FOOD,Bakes,,6.00,,30.00,0.00
+Product,Extra Items,Extra Items,extra matcha*,,,,2.00,,3.00,0.00
+Product,Extra Items,Extra Items,pistacio*,,,,1.00,,2.00,0.00
+Product,Unknown Class,Matcha Powder,100g Pouch*,MERCH,Merch,,5.00,,166.62,0.00
+Product,Unknown Class,Matcha,Giuseppe's Iced Pistachio Tiramisu Matcha Latte*,DRINKS,ICED SPECIALS,,116.00,,756.50,0.00
+Product,Unknown Class,Matcha,Hot Cacoa + Shrooms Latte*,DRINKS,HOT SPECIALS,,0.00,,0.00,0.00
+Product,Unknown Class,Matcha,Hot Chai Matcha Latte*,DRINKS,HOT MATCHA,,6.00,,25.02,0.00
+Product,Unknown Class,Matcha,Hot Flat Green*,DRINKS,HOT MATCHA,,4.00,,13.74,0.00
+Product,Unknown Class,Matcha,Hot Ginger + Turmeric Latte*,DRINKS,HOT SPECIALS,,4.00,,18.32,0.00
+Product,Unknown Class,Matcha,Hot Hojicha Latte*,DRINKS,HOT MATCHA,,2.00,,7.92,0.00
+Product,Unknown Class,Matcha,Hot Lavender + CBD Latte*,DRINKS,HOT SPECIALS,,6.00,,27.48,0.00
+Product,Unknown Class,Matcha,Hot Matcha Latte*,DRINKS,HOT MATCHA,,30.00,,115.42,0.00
+Product,Unknown Class,Matcha,Hot Matchacano*,DRINKS,HOT MATCHA,,2.00,,5.84,0.00
+Product,Unknown Class,Matcha,Hot Rose + Collagen Latte*,DRINKS,HOT SPECIALS,,6.00,,27.48,0.00
+Product,Unknown Class,Matcha,Hot Salted Vanilla Latte*,DRINKS,HOT SPECIALS,,5.00,,24.15,0.00
+Product,Unknown Class,Matcha,Iced Black Cherry Matcha Latte*,DRINKS,ICED SPECIALS,,-2.00,,-11.00,0.00
+Product,Unknown Class,Matcha,Iced Chai Matcha Latte*,DRINKS,ICED MATCHA,,10.00,,50.00,0.00
+Product,Unknown Class,Matcha,Iced Flat Green*,DRINKS,ICED MATCHA,,9.00,,36.50,0.00
+Product,Unknown Class,Matcha,Iced Ginger + Turmeric Latte*,DRINKS,ICED SPECIALS,,3.00,,16.50,0.00
+Product,Unknown Class,Matcha,Iced Hojicha Latte*,DRINKS,ICED MATCHA,,5.00,,23.00,0.00
+Product,Unknown Class,Matcha,Iced Lavender + CBD Latte*,DRINKS,ICED SPECIALS,,20.00,,114.00,0.00
+Product,Unknown Class,Matcha,Iced Matcha Latte*,DRINKS,ICED MATCHA,,102.00,,490.00,0.00
+Product,Unknown Class,Matcha,Iced Matchacano*,DRINKS,ICED MATCHA,,2.00,,7.00,0.00
+Product,Unknown Class,Matcha,Iced Rose + Collagen Latte*,DRINKS,ICED SPECIALS,,20.00,,110.50,0.00
+Product,Unknown Class,Matcha,Iced Salted Vanilla Late*,DRINKS,ICED SPECIALS,,74.00,,407.00,0.00
+Product,Unknown Class,Merch,JENKI Tumbler*,MERCH,Merch,,1.00,,19.99,0.00
+Product,Unknown Class,Other,Still Water*,WATER,Drinks,,2.00,,2.50,0.00
+Product,Unknown Class,Soft Serve,Matchagato*,FOOD,Soft Serve,,4.00,,20.00,0.00

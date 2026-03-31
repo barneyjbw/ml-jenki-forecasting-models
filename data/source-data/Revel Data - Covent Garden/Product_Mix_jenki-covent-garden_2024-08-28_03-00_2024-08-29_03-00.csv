@@ -1,0 +1,4 @@
+Row Type,Parent Product Class,Class,Name,Product Category,Product Subcategory,Parent Product,Qty,Weight,Total Sales,COGS
+Employee,,,"Boyer, Otto",,,,2.00,,5.00,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Cookie*,FOOD,Bakes,,1.00,,3.75,0.00
+Product,Unknown Class,Other,Still Water*,WATER,Drinks,,1.00,,1.25,0.00

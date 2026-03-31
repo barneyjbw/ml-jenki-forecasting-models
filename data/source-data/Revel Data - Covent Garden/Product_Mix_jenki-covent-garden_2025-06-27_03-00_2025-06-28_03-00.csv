@@ -1,0 +1,30 @@
+Row Type,Parent Product Class,Class,Name,Product Category,Product Subcategory,Parent Product,Qty,Weight,Total Sales,COGS
+Employee,,,"Boyer, Otto",,,,562.00,,3232.99,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,3x Coco Bites*,FOOD,Bakes,,1.00,,7.00,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Coco Bites*,FOOD,Bakes,,3.00,,7.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Cookie*,FOOD,Bakes,,7.00,,31.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha PB Cup*,FOOD,Bakes,,1.00,,3.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Snickers*,FOOD,Bakes,,2.00,,10.00,0.00
+Product,Extra Items,Extra Items,salt vanillia*,,,,1.00,,4.50,0.00
+Product,Extra Items,Extra Items,vanilla*,,,,1.00,,0.50,0.00
+Product,Unknown Class,Matcha Powder,100g Pouch*,MERCH,Merch,,7.00,,233.24,0.00
+Product,Unknown Class,Matcha Powder,40g Tin*,MERCH,Merch,,3.00,,69.96,0.00
+Product,Unknown Class,Matcha,Hot Ginger + Turmeric Latte*,DRINKS,HOT SPECIALS,,1.00,,4.59,0.00
+Product,Unknown Class,Matcha,Hot Hojicha Latte*,DRINKS,HOT MATCHA,,1.00,,4.17,0.00
+Product,Unknown Class,Matcha,Hot Matcha Latte*,DRINKS,HOT MATCHA,,6.00,,22.50,0.00
+Product,Unknown Class,Matcha,Hot Matchacano*,DRINKS,HOT MATCHA,,2.00,,5.84,0.00
+Product,Unknown Class,Matcha,Iced Cacoa + Shrooms Latte*,DRINKS,ICED SPECIALS,,7.00,,38.50,0.00
+Product,Unknown Class,Matcha,Iced Chai Matcha Latte*,DRINKS,ICED MATCHA,,7.00,,35.00,0.00
+Product,Unknown Class,Matcha,Iced Flat Green*,DRINKS,ICED MATCHA,,2.00,,8.00,0.00
+Product,Unknown Class,Matcha,Iced Ginger + Turmeric Latte*,DRINKS,ICED SPECIALS,,5.00,,27.50,0.00
+Product,Unknown Class,Matcha,Iced Hojicha Latte*,DRINKS,ICED MATCHA,,7.00,,31.50,0.00
+Product,Unknown Class,Matcha,Iced Lavender + CBD Latte*,DRINKS,ICED SPECIALS,,20.00,,110.00,0.00
+Product,Unknown Class,Matcha,Iced Matcha Latte*,DRINKS,ICED MATCHA,,182.00,,870.50,0.00
+Product,Unknown Class,Matcha,Iced Matchacano*,DRINKS,ICED MATCHA,,7.00,,24.50,0.00
+Product,Unknown Class,Matcha,Iced Rose + Collagen Latte*,DRINKS,ICED SPECIALS,,26.00,,143.00,0.00
+Product,Unknown Class,Matcha,Iced Salted Vanilla Late*,DRINKS,ICED SPECIALS,,101.00,,560.50,0.00
+Product,Unknown Class,Matcha,Strawberry + Elderflower Matcha Latte*,DRINKS,ICED SPECIALS,,148.00,,821.50,0.00
+Product,Unknown Class,Merch,Bamboo Whisk*,MERCH,Merch,,2.00,,24.99,0.00
+Product,Unknown Class,Merch,Ritual Starter Set*,MERCH,Merch,,2.00,,90.20,0.00
+Product,Unknown Class,Other,Still Water*,WATER,Drinks,,2.00,,2.50,0.00
+Product,Unknown Class,Soft Serve,Matchagato*,FOOD,Soft Serve,,8.00,,40.00,0.00

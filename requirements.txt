@@ -1,0 +1,8 @@
+prophet==1.1.6
+pandas==2.2.3
+google-cloud-storage==2.19.0
+joblib==1.4.2
+holidays==0.61
+tenacity==9.0.0
+google-genai>=1.0.0
+python-dotenv>=1.0.0

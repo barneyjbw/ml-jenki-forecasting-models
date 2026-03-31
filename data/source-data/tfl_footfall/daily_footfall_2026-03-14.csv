@@ -1,0 +1,428 @@
+station_name,date,day_of_week,entries,exits
+Abbey Road DLR,2026-03-14,Saturday,704,643
+Abbey Wood,2026-03-14,Saturday,15160,13711
+Acton Central,2026-03-14,Saturday,2146,2089
+Acton Main Line,2026-03-14,Saturday,3800,3207
+Acton Town,2026-03-14,Saturday,5812,6054
+Aldgate,2026-03-14,Saturday,0,15
+Aldgate East,2026-03-14,Saturday,16073,15882
+All Saints,2026-03-14,Saturday,45,5
+Alperton,2026-03-14,Saturday,2620,2846
+Amersham,2026-03-14,Saturday,3443,3108
+Anerley,2026-03-14,Saturday,1068,813
+Angel,2026-03-14,Saturday,19674,21189
+Archway,2026-03-14,Saturday,10057,9221
+Arnos Grove,2026-03-14,Saturday,4734,4417
+Arsenal,2026-03-14,Saturday,11609,12754
+Baker Street,2026-03-14,Saturday,26592,29090
+Balham,2026-03-14,Saturday,14879,14406
+Bank,2026-03-14,Saturday,21340,27729
+Barbican,2026-03-14,Saturday,6,3
+Barking,2026-03-14,Saturday,24563,23628
+Barking Riverside,2026-03-14,Saturday,1240,1022
+Barkingside,2026-03-14,Saturday,1311,1453
+Barons Court,2026-03-14,Saturday,2460,4631
+Battersea Power Station,2026-03-14,Saturday,16860,15351
+Bayswater,2026-03-14,Saturday,3415,2698
+Beckton,2026-03-14,Saturday,1359,1272
+Beckton Park,2026-03-14,Saturday,369,310
+Becontree,2026-03-14,Saturday,4595,4216
+Belsize Park,2026-03-14,Saturday,6066,5962
+Bermondsey,2026-03-14,Saturday,11379,11400
+Bethnal Green,2026-03-14,Saturday,16222,15995
+Bethnal Green NR,2026-03-14,Saturday,2217,2510
+Blackfriars,2026-03-14,Saturday,13093,11624
+Blackhorse Road,2026-03-14,Saturday,13840,13207
+Blackwall,2026-03-14,Saturday,1462,1209
+Bond Street,2026-03-14,Saturday,53233,57391
+Borough,2026-03-14,Saturday,5266,5449
+Boston Manor,2026-03-14,Saturday,1552,1590
+Bounds Green,2026-03-14,Saturday,5827,5636
+Bow Church,2026-03-14,Saturday,112,2
+Bow Road,2026-03-14,Saturday,6345,6028
+Brent Cross,2026-03-14,Saturday,2400,2383
+Brentwood,2026-03-14,Saturday,0,8
+Brixton,2026-03-14,Saturday,33252,33797
+Brockley,2026-03-14,Saturday,4914,4310
+Bromley-by-Bow,2026-03-14,Saturday,6042,5473
+Brondesbury,2026-03-14,Saturday,3778,3095
+Brondesbury Park,2026-03-14,Saturday,1551,1428
+Bruce Grove,2026-03-14,Saturday,1781,1403
+Buckhurst Hill,2026-03-14,Saturday,2565,2446
+Burnham Bucks,2026-03-14,Saturday,1003,1038
+Burnt Oak,2026-03-14,Saturday,3743,3829
+Bush Hill Park,2026-03-14,Saturday,1481,1175
+Bushey,2026-03-14,Saturday,1536,1100
+Caledonian Road,2026-03-14,Saturday,6579,5695
+Caledonian Road & Barnsbury,2026-03-14,Saturday,2359,2156
+Cambridge Heath,2026-03-14,Saturday,1277,1360
+Camden Road,2026-03-14,Saturday,6747,6682
+Camden Town,2026-03-14,Saturday,32387,36222
+Canada Water,2026-03-14,Saturday,15809,15436
+Canary Wharf,2026-03-14,Saturday,40008,41182
+Canary Wharf DLR,2026-03-14,Saturday,5991,6488
+Canary Wharf Elizabeth Line,2026-03-14,Saturday,19554,19692
+Canning Town,2026-03-14,Saturday,18026,18353
+Cannon Street,2026-03-14,Saturday,3682,2890
+Canonbury,2026-03-14,Saturday,4835,4448
+Canons Park,2026-03-14,Saturday,2859,2828
+Carpenders Park,2026-03-14,Saturday,1559,1517
+Chalfont & Latimer,2026-03-14,Saturday,1503,1609
+Chalk Farm,2026-03-14,Saturday,8915,6919
+Chancery Lane,2026-03-14,Saturday,6427,6478
+Charing Cross,2026-03-14,Saturday,20666,19674
+Chesham,2026-03-14,Saturday,1271,1280
+Cheshunt,2026-03-14,Saturday,2849,2780
+Chigwell,2026-03-14,Saturday,281,267
+Chingford,2026-03-14,Saturday,3299,3086
+Chiswick Park,2026-03-14,Saturday,2393,2593
+Chorleywood,2026-03-14,Saturday,859,823
+Clapham Common,2026-03-14,Saturday,12844,13953
+Clapham High Street,2026-03-14,Saturday,1942,1926
+Clapham Junction,2026-03-14,Saturday,27135,26833
+Clapham North,2026-03-14,Saturday,8120,8569
+Clapham South,2026-03-14,Saturday,8321,8188
+Clapton,2026-03-14,Saturday,2878,2432
+Cockfosters,2026-03-14,Saturday,2865,2893
+Colindale,2026-03-14,Saturday,8073,7642
+Colliers Wood,2026-03-14,Saturday,7665,7312
+Covent Garden,2026-03-14,Saturday,20027,24145
+Crossharbour,2026-03-14,Saturday,2770,2384
+Crouch Hill,2026-03-14,Saturday,1456,1538
+Croxley,2026-03-14,Saturday,792,713
+Crystal Palace,2026-03-14,Saturday,3666,3646
+Custom House DLR,2026-03-14,Saturday,3282,2536
+Custom House Elizabeth Line,2026-03-14,Saturday,14721,14161
+Cyprus,2026-03-14,Saturday,606,517
+Dagenham East,2026-03-14,Saturday,3795,3358
+Dagenham Heathway,2026-03-14,Saturday,7169,7009
+Dalston Junction,2026-03-14,Saturday,9524,10101
+Dalston Kingsland,2026-03-14,Saturday,9226,10258
+Debden,2026-03-14,Saturday,2445,2331
+Denmark Hill,2026-03-14,Saturday,4937,4766
+Deptford Bridge,2026-03-14,Saturday,2328,1909
+Devons Road,2026-03-14,Saturday,162,5
+Dollis Hill,2026-03-14,Saturday,4026,3570
+Ealing Broadway,2026-03-14,Saturday,21584,22625
+Ealing Common,2026-03-14,Saturday,2607,2521
+Earls Court,2026-03-14,Saturday,25253,25905
+East Acton,2026-03-14,Saturday,3607,3458
+East Finchley,2026-03-14,Saturday,6910,6660
+East Ham,2026-03-14,Saturday,15726,15202
+East India,2026-03-14,Saturday,2763,2374
+East Putney,2026-03-14,Saturday,7501,6993
+Eastcote,2026-03-14,Saturday,2521,2521
+Edgware,2026-03-14,Saturday,5452,5439
+Edgware Road B,2026-03-14,Saturday,6722,6741
+Edgware Road C&H,2026-03-14,Saturday,4644,7433
+Edmonton Green,2026-03-14,Saturday,4080,3769
+Elephant & Castle,2026-03-14,Saturday,18939,17451
+Elm Park,2026-03-14,Saturday,4812,4580
+Elverson Road,2026-03-14,Saturday,962,693
+Embankment,2026-03-14,Saturday,26558,26318
+Enfield Town,2026-03-14,Saturday,3021,2581
+Epping,2026-03-14,Saturday,5279,5119
+Euston,2026-03-14,Saturday,51579,51863
+Euston NR,2026-03-14,Saturday,12138,14621
+Fairlop,2026-03-14,Saturday,1638,1516
+Farringdon,2026-03-14,Saturday,15759,17566
+Finchley Central,2026-03-14,Saturday,5951,5723
+Finchley Road,2026-03-14,Saturday,9977,8937
+Finchley Road & Frognal,2026-03-14,Saturday,2881,2752
+Finsbury Park,2026-03-14,Saturday,36164,32105
+Forest Gate,2026-03-14,Saturday,1,0
+Forest Hill,2026-03-14,Saturday,5462,4864
+Fulham Broadway,2026-03-14,Saturday,20585,21847
+Gallions Reach,2026-03-14,Saturday,1815,1562
+Gants Hill,2026-03-14,Saturday,9189,8811
+Gloucester Road,2026-03-14,Saturday,16464,15953
+Golders Green,2026-03-14,Saturday,7634,7740
+Goldhawk Road,2026-03-14,Saturday,1707,1411
+Goodge Street,2026-03-14,Saturday,4752,5442
+Goodmayes,2026-03-14,Saturday,6,63
+Gospel Oak,2026-03-14,Saturday,4227,3944
+Grange Hill,2026-03-14,Saturday,378,352
+Great Portland Street,2026-03-14,Saturday,0,1
+Green Park,2026-03-14,Saturday,34440,40084
+Greenford,2026-03-14,Saturday,3687,3568
+Greenwich,2026-03-14,Saturday,10334,9460
+Gunnersbury,2026-03-14,Saturday,4310,3964
+Hackney Central,2026-03-14,Saturday,9452,9687
+Hackney Downs,2026-03-14,Saturday,3218,3200
+Hackney Wick,2026-03-14,Saturday,9358,10481
+Haggerston,2026-03-14,Saturday,4647,4936
+Hainault,2026-03-14,Saturday,4011,3998
+Hammersmith C&H,2026-03-14,Saturday,11842,10705
+Hammersmith D&P,2026-03-14,Saturday,33160,32566
+Hampstead,2026-03-14,Saturday,6711,7625
+Hampstead Heath,2026-03-14,Saturday,5433,5573
+Hanger Lane,2026-03-14,Saturday,2867,2760
+Hanwell,2026-03-14,Saturday,2539,2004
+Harlesden,2026-03-14,Saturday,2514,2318
+Harold Wood,2026-03-14,Saturday,4,3
+Harringay Green Lanes,2026-03-14,Saturday,2245,2129
+Harrow & Wealdstone,2026-03-14,Saturday,5869,4998
+Harrow-on-the-Hill,2026-03-14,Saturday,9552,9805
+Hatch End,2026-03-14,Saturday,861,910
+Hatton Cross,2026-03-14,Saturday,4117,4562
+Hayes & Harlington,2026-03-14,Saturday,10231,10057
+Headstone Lane,2026-03-14,Saturday,548,468
+Heathrow T2&3 TfL Rail/HEx,2026-03-14,Saturday,8727,7828
+Heathrow T4 TfL Rail/HEx,2026-03-14,Saturday,2140,1908
+Heathrow T5 TfL Rail/HEx,2026-03-14,Saturday,4515,4308
+Heathrow Terminal 4,2026-03-14,Saturday,2257,2004
+Heathrow Terminal 5,2026-03-14,Saturday,6324,5035
+Heathrow Terminals 2&3,2026-03-14,Saturday,9882,7971
+Hendon Central,2026-03-14,Saturday,6120,5653
+Heron Quays,2026-03-14,Saturday,4416,4287
+High Barnet,2026-03-14,Saturday,4284,4151
+High Street Kensington,2026-03-14,Saturday,15708,14200
+Highams Park,2026-03-14,Saturday,3684,3192
+Highbury & Islington,2026-03-14,Saturday,33763,35095
+Highgate,2026-03-14,Saturday,6318,6271
+Hillingdon,2026-03-14,Saturday,2190,2020
+Holborn,2026-03-14,Saturday,22137,23185
+Holland Park,2026-03-14,Saturday,5991,5911
+Holloway Road,2026-03-14,Saturday,6940,10271
+Homerton,2026-03-14,Saturday,6137,5721
+Honor Oak Park,2026-03-14,Saturday,3287,3072
+Hornchurch,2026-03-14,Saturday,4385,4412
+Hounslow Central,2026-03-14,Saturday,4105,4091
+Hounslow East,2026-03-14,Saturday,4275,4329
+Hounslow West,2026-03-14,Saturday,3570,3884
+Hoxton,2026-03-14,Saturday,5693,6394
+Hyde Park Corner,2026-03-14,Saturday,5446,5793
+Ickenham,2026-03-14,Saturday,973,995
+Imperial Wharf,2026-03-14,Saturday,3208,3387
+Island Gardens,2026-03-14,Saturday,3483,2343
+Iver,2026-03-14,Saturday,305,252
+Kennington,2026-03-14,Saturday,7520,7795
+Kensal Green,2026-03-14,Saturday,2276,2031
+Kensal Rise,2026-03-14,Saturday,3754,3523
+Kensington Olympia,2026-03-14,Saturday,2583,2438
+Kentish Town,2026-03-14,Saturday,9079,8599
+Kentish Town West,2026-03-14,Saturday,2664,2501
+Kenton,2026-03-14,Saturday,1935,1961
+Kew Gardens,2026-03-14,Saturday,7623,7467
+Kilburn,2026-03-14,Saturday,6363,6982
+Kilburn High Road,2026-03-14,Saturday,1322,1347
+Kilburn Park,2026-03-14,Saturday,3445,3247
+King George V,2026-03-14,Saturday,1416,1149
+Kings Cross St Pancras,2026-03-14,Saturday,105289,103751
+Kingsbury,2026-03-14,Saturday,4035,4055
+Knightsbridge,2026-03-14,Saturday,22507,19011
+Ladbroke Grove,2026-03-14,Saturday,8416,6106
+Lambeth North,2026-03-14,Saturday,3196,3586
+Lancaster Gate,2026-03-14,Saturday,6115,6230
+Langdon Park,2026-03-14,Saturday,1,2
+Langley Berks,2026-03-14,Saturday,804,812
+Latimer Road,2026-03-14,Saturday,1751,1411
+Leicester Square,2026-03-14,Saturday,58703,52779
+Lewisham DLR,2026-03-14,Saturday,4788,3820
+Leyton,2026-03-14,Saturday,14404,14321
+Leyton Midland Road,2026-03-14,Saturday,2479,2228
+Leytonstone,2026-03-14,Saturday,9912,9956
+Leytonstone High Road,2026-03-14,Saturday,1830,1784
+Limehouse DLR,2026-03-14,Saturday,6717,5781
+Liverpool St NR,2026-03-14,Saturday,18183,17663
+Liverpool Street,2026-03-14,Saturday,56563,54806
+London Bridge,2026-03-14,Saturday,92429,88140
+London City Airport,2026-03-14,Saturday,1482,1294
+London Fields,2026-03-14,Saturday,2526,2696
+Loughton,2026-03-14,Saturday,4116,4172
+Maida Vale,2026-03-14,Saturday,3447,3008
+Maidenhead,2026-03-14,Saturday,2051,2188
+Manor House,2026-03-14,Saturday,7793,7679
+Manor Park,2026-03-14,Saturday,3,3
+Mansion House,2026-03-14,Saturday,3663,4194
+Marble Arch,2026-03-14,Saturday,14437,14143
+Marylebone,2026-03-14,Saturday,2935,3434
+Mile End,2026-03-14,Saturday,14101,14050
+Mill Hill East,2026-03-14,Saturday,1414,1295
+Monument,2026-03-14,Saturday,15614,10374
+Moor Park,2026-03-14,Saturday,668,688
+Moorgate,2026-03-14,Saturday,14414,18139
+Morden,2026-03-14,Saturday,11574,11785
+Mornington Crescent,2026-03-14,Saturday,5319,3601
+Mudchute,2026-03-14,Saturday,1842,1461
+Neasden,2026-03-14,Saturday,3004,2807
+New Cross,2026-03-14,Saturday,4225,4618
+New Cross Gate,2026-03-14,Saturday,5957,6538
+Newbury Park,2026-03-14,Saturday,12928,12960
+Nine Elms,2026-03-14,Saturday,5073,4907
+North Acton,2026-03-14,Saturday,6640,6867
+North Ealing,2026-03-14,Saturday,655,628
+North Greenwich,2026-03-14,Saturday,43172,46160
+North Harrow,2026-03-14,Saturday,1537,1390
+North Wembley,2026-03-14,Saturday,1568,1404
+Northfields,2026-03-14,Saturday,3060,3025
+Northolt,2026-03-14,Saturday,5104,4628
+Northwick Park,2026-03-14,Saturday,2910,2721
+Northwood,2026-03-14,Saturday,2396,2235
+Northwood Hills,2026-03-14,Saturday,1534,1445
+Norwood Junction,2026-03-14,Saturday,5364,4696
+Notting Hill Gate,2026-03-14,Saturday,22802,28731
+Oakwood,2026-03-14,Saturday,3656,3848
+Old Street,2026-03-14,Saturday,20297,22062
+Osterley,2026-03-14,Saturday,2245,2190
+Oval,2026-03-14,Saturday,7077,6884
+Oxford Circus,2026-03-14,Saturday,73212,82448
+Paddington,2026-03-14,Saturday,42583,45200
+Paddington EL,2026-03-14,Saturday,34450,33732
+Park Royal,2026-03-14,Saturday,1683,1699
+Parsons Green,2026-03-14,Saturday,7595,7242
+Peckham Rye,2026-03-14,Saturday,8372,8700
+Penge West,2026-03-14,Saturday,893,715
+Perivale,2026-03-14,Saturday,2061,1964
+Piccadilly Circus,2026-03-14,Saturday,44613,41135
+Pimlico,2026-03-14,Saturday,8926,9037
+Pinner,2026-03-14,Saturday,2494,2350
+Plaistow,2026-03-14,Saturday,6120,5541
+Pontoon Dock DLR,2026-03-14,Saturday,2974,2742
+Poplar,2026-03-14,Saturday,1055,1308
+Preston Road,2026-03-14,Saturday,2689,2567
+Prince Regent,2026-03-14,Saturday,2997,2580
+Pudding Mill Lane,2026-03-14,Saturday,0,2
+Putney Bridge,2026-03-14,Saturday,6754,6957
+Queens Park,2026-03-14,Saturday,5896,5495
+Queens Rd Peckham,2026-03-14,Saturday,4062,3720
+Queensbury,2026-03-14,Saturday,3424,3339
+Queensway,2026-03-14,Saturday,11396,13302
+Ravenscourt Park,2026-03-14,Saturday,3560,3669
+Rayners Lane,2026-03-14,Saturday,3985,4035
+Reading,2026-03-14,Saturday,1711,1764
+Rectory Road,2026-03-14,Saturday,1633,1485
+Redbridge,2026-03-14,Saturday,3495,3279
+Regents Park,2026-03-14,Saturday,2656,2995
+Richmond,2026-03-14,Saturday,20944,20451
+Rickmansworth,2026-03-14,Saturday,2129,2144
+Roding Valley,2026-03-14,Saturday,184,180
+Romford,2026-03-14,Saturday,0,1
+Rotherhithe,2026-03-14,Saturday,2513,2295
+Royal Albert,2026-03-14,Saturday,963,885
+Royal Oak,2026-03-14,Saturday,1486,1323
+Royal Victoria,2026-03-14,Saturday,2208,1620
+Ruislip,2026-03-14,Saturday,2018,1982
+Ruislip Gardens,2026-03-14,Saturday,1093,1021
+Ruislip Manor,2026-03-14,Saturday,1767,1668
+Russell Square,2026-03-14,Saturday,10340,10205
+Seven Kings,2026-03-14,Saturday,2,0
+Seven Sisters,2026-03-14,Saturday,16683,16217
+Shadwell DLR,2026-03-14,Saturday,5284,4909
+Shadwell LO,2026-03-14,Saturday,5146,5172
+Shenfield,2026-03-14,Saturday,277,246
+Shepherds Bush,2026-03-14,Saturday,23098,22475
+Shepherds Bush LO,2026-03-14,Saturday,9914,10855
+Shepherds Bush Market,2026-03-14,Saturday,3362,3013
+Shoreditch High Street,2026-03-14,Saturday,10157,11176
+Silver Street,2026-03-14,Saturday,2490,2234
+Sloane Square,2026-03-14,Saturday,19114,19394
+Slough,2026-03-14,Saturday,2770,2716
+Snaresbrook,2026-03-14,Saturday,2441,2389
+South Acton,2026-03-14,Saturday,968,846
+South Ealing,2026-03-14,Saturday,2897,2793
+South Hampstead,2026-03-14,Saturday,835,710
+South Harrow,2026-03-14,Saturday,2360,2158
+South Kensington,2026-03-14,Saturday,40708,42487
+South Kenton,2026-03-14,Saturday,815,779
+South Quay,2026-03-14,Saturday,3200,2648
+South Ruislip,2026-03-14,Saturday,2026,1961
+South Tottenham,2026-03-14,Saturday,1840,2015
+South Wimbledon,2026-03-14,Saturday,4864,4890
+South Woodford,2026-03-14,Saturday,5624,5695
+Southall,2026-03-14,Saturday,9677,9240
+Southbury,2026-03-14,Saturday,1246,1353
+Southfields,2026-03-14,Saturday,6869,6244
+Southgate,2026-03-14,Saturday,4339,5164
+Southwark,2026-03-14,Saturday,9284,9487
+St James Street,2026-03-14,Saturday,2349,2139
+St James's Park,2026-03-14,Saturday,9585,10082
+St Johns Wood,2026-03-14,Saturday,6911,7408
+St Pauls,2026-03-14,Saturday,10781,9464
+Stamford Brook,2026-03-14,Saturday,3069,2784
+Stamford Hill,2026-03-14,Saturday,792,657
+Stanmore,2026-03-14,Saturday,4665,4739
+Star Lane DLR,2026-03-14,Saturday,936,836
+Stepney Green,2026-03-14,Saturday,5427,5004
+Stockwell,2026-03-14,Saturday,11886,10925
+Stoke Newington,2026-03-14,Saturday,2097,1879
+Stonebridge Park,2026-03-14,Saturday,2698,2421
+Stratford,2026-03-14,Saturday,108932,111344
+Stratford High Street,2026-03-14,Saturday,1062,1227
+Stratford International,2026-03-14,Saturday,3912,3217
+Sudbury Hill,2026-03-14,Saturday,1850,1802
+Sudbury Town,2026-03-14,Saturday,1768,1561
+Surrey Quays,2026-03-14,Saturday,7643,6818
+Swiss Cottage,2026-03-14,Saturday,8643,9548
+Sydenham SR,2026-03-14,Saturday,4045,3933
+Taplow,2026-03-14,Saturday,406,379
+Temple,2026-03-14,Saturday,6071,6048
+Theobalds Grove,2026-03-14,Saturday,949,869
+Theydon Bois,2026-03-14,Saturday,1282,1309
+Tooting Bec,2026-03-14,Saturday,9001,8441
+Tooting Broadway,2026-03-14,Saturday,17087,16664
+Tottenham Court Road,2026-03-14,Saturday,94170,95221
+Tottenham Hale,2026-03-14,Saturday,22434,21442
+Totteridge & Whetstone,2026-03-14,Saturday,2928,2778
+Tower Gateway,2026-03-14,Saturday,3167,2841
+Tower Hill,2026-03-14,Saturday,24376,23652
+Tufnell Park,2026-03-14,Saturday,4794,4320
+Turkey Street,2026-03-14,Saturday,1193,1002
+Turnham Green,2026-03-14,Saturday,7243,7247
+Turnpike Lane,2026-03-14,Saturday,10034,10478
+Twyford,2026-03-14,Saturday,475,431
+Upminster,2026-03-14,Saturday,9405,9267
+Upminster Bridge,2026-03-14,Saturday,1352,1041
+Upney,2026-03-14,Saturday,2884,2517
+Upper Holloway,2026-03-14,Saturday,2052,1899
+Upton Park,2026-03-14,Saturday,15688,14719
+Uxbridge,2026-03-14,Saturday,6152,5745
+Vauxhall,2026-03-14,Saturday,32338,29856
+Victoria,2026-03-14,Saturday,81548,83339
+W Silvertown,2026-03-14,Saturday,2519,2267
+Walthamstow Central,2026-03-14,Saturday,19851,19902
+Walthamstow Queens Road,2026-03-14,Saturday,1506,1589
+Wandsworth Road,2026-03-14,Saturday,766,536
+Wanstead,2026-03-14,Saturday,3350,3273
+Wanstead Park,2026-03-14,Saturday,2466,2261
+Wapping,2026-03-14,Saturday,3772,3599
+Warren Street,2026-03-14,Saturday,15330,15051
+Warwick Avenue,2026-03-14,Saturday,4170,4111
+Waterloo,2026-03-14,Saturday,76357,76211
+Watford High Street,2026-03-14,Saturday,1991,2007
+Watford Junction,2026-03-14,Saturday,5944,5310
+Watford Met,2026-03-14,Saturday,1567,1476
+Wembley Central,2026-03-14,Saturday,6278,6663
+Wembley Park,2026-03-14,Saturday,27089,26709
+West Acton,2026-03-14,Saturday,1330,1338
+West Brompton,2026-03-14,Saturday,6614,6369
+West Croydon,2026-03-14,Saturday,4666,4353
+West Drayton,2026-03-14,Saturday,4434,3973
+West Ealing,2026-03-14,Saturday,3548,3039
+West Finchley,2026-03-14,Saturday,1653,1540
+West Ham,2026-03-14,Saturday,8652,8318
+West Hampstead,2026-03-14,Saturday,10703,10678
+West Hampstead LO,2026-03-14,Saturday,7224,6415
+West Harrow,2026-03-14,Saturday,1171,1056
+West India Quay,2026-03-14,Saturday,698,728
+West Kensington,2026-03-14,Saturday,7360,5734
+West Ruislip,2026-03-14,Saturday,2125,2016
+Westbourne Park,2026-03-14,Saturday,3635,2840
+Westferry,2026-03-14,Saturday,3834,3383
+Westminster,2026-03-14,Saturday,27000,29552
+White City,2026-03-14,Saturday,10312,10438
+White Hart Lane,2026-03-14,Saturday,2262,1959
+Whitechapel,2026-03-14,Saturday,23207,23829
+Willesden Green,2026-03-14,Saturday,6986,6892
+Willesden Junction,2026-03-14,Saturday,5328,4957
+Wimbledon,2026-03-14,Saturday,22584,22100
+Wimbledon Park,2026-03-14,Saturday,2485,2576
+Wood Green,2026-03-14,Saturday,11313,10836
+Wood Lane,2026-03-14,Saturday,5147,5196
+Wood Street,2026-03-14,Saturday,2841,2534
+Woodford,2026-03-14,Saturday,6722,6456
+Woodgrange Park,2026-03-14,Saturday,1997,1557
+Woodside Park,2026-03-14,Saturday,3377,2798
+Woolwich Arsenal DLR,2026-03-14,Saturday,5379,6092
+Woolwich Arsenal NR,2026-03-14,Saturday,1659,1511
+Woolwich Elizabeth Line,2026-03-14,Saturday,17581,16443

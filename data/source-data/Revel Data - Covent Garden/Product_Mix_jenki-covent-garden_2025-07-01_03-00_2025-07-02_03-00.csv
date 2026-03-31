@@ -1,0 +1,27 @@
+Row Type,Parent Product Class,Class,Name,Product Category,Product Subcategory,Parent Product,Qty,Weight,Total Sales,COGS
+Employee,,,"Boyer, Otto",,,,578.00,,3200.40,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,3x Coco Bites*,FOOD,Bakes,,1.00,,7.00,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Coco Bites*,FOOD,Bakes,,1.00,,2.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Cookie*,FOOD,Bakes,,1.00,,4.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha PB Cup*,FOOD,Bakes,,3.00,,10.50,0.00
+Product,Unknown Class,Bakes/ Healthy Bites,Matcha Snickers*,FOOD,Bakes,,1.00,,5.00,0.00
+Product,Extra Items,Extra Items,Matcha*,,,,2.00,,3.00,0.00
+Product,Extra Items,Extra Items,balancing void*,,,,1.00,,12.50,0.00
+Product,Unknown Class,Matcha Powder,100g Pouch*,MERCH,Merch,,4.00,,133.28,0.00
+Product,Unknown Class,Matcha Powder,40g Tin*,MERCH,Merch,,4.00,,93.28,0.00
+Product,Unknown Class,Matcha,Hot Matcha Latte*,DRINKS,HOT MATCHA,,1.00,,3.75,0.00
+Product,Unknown Class,Matcha,Iced Cacoa + Shrooms Latte*,DRINKS,ICED SPECIALS,,8.00,,44.00,0.00
+Product,Unknown Class,Matcha,Iced Chai Matcha Latte*,DRINKS,ICED MATCHA,,12.00,,60.00,0.00
+Product,Unknown Class,Matcha,Iced Flat Green*,DRINKS,ICED MATCHA,,11.00,,44.00,0.00
+Product,Unknown Class,Matcha,Iced Ginger + Turmeric Latte*,DRINKS,ICED SPECIALS,,3.00,,16.50,0.00
+Product,Unknown Class,Matcha,Iced Hojicha Latte*,DRINKS,ICED MATCHA,,9.00,,41.00,0.00
+Product,Unknown Class,Matcha,Iced Lavender + CBD Latte*,DRINKS,ICED SPECIALS,,29.00,,159.50,0.00
+Product,Unknown Class,Matcha,Iced Matcha Latte*,DRINKS,ICED MATCHA,,215.00,,1043.00,0.00
+Product,Unknown Class,Matcha,Iced Matchacano*,DRINKS,ICED MATCHA,,13.00,,46.00,0.00
+Product,Unknown Class,Matcha,Iced Rose + Collagen Latte*,DRINKS,ICED SPECIALS,,28.00,,154.00,0.00
+Product,Unknown Class,Matcha,Iced Salted Vanilla Late*,DRINKS,ICED SPECIALS,,64.00,,357.00,0.00
+Product,Unknown Class,Matcha,Strawberry + Elderflower Matcha Latte*,DRINKS,ICED SPECIALS,,132.00,,730.00,0.00
+Product,Unknown Class,Merch,JENKI Tumbler*,MERCH,Merch,,1.00,,19.99,0.00
+Product,Unknown Class,Merch,Ritual Starter Set*,MERCH,Merch,,1.00,,45.10,0.00
+Product,Unknown Class,Other,Still Water*,WATER,Drinks,,0.00,,0.00,0.00
+Product,Unknown Class,Soft Serve,Matchagato*,FOOD,Soft Serve,,33.00,,165.00,0.00

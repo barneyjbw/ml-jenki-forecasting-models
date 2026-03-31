@@ -1,0 +1,401 @@
+special_drink_general_name,Date,Location,day_of_special,Number of Units,Total Gross Sales
+Black Cherry Matcha Latte,01/04/2025,jenki-spitalfields,13,105.0,590.1
+Black Cherry Matcha Latte,02/04/2025,jenki-spitalfields,14,134.0,750.8
+Black Cherry Matcha Latte,03/04/2025,jenki-spitalfields,15,114.0,637.15
+Black Cherry Matcha Latte,04/04/2025,jenki-spitalfields,16,151.0,835.0
+Black Cherry Matcha Latte,05/04/2025,jenki-spitalfields,17,159.0,888.65
+Black Cherry Matcha Latte,06/04/2025,jenki-spitalfields,18,83.0,461.0
+Black Cherry Matcha Latte,07/04/2025,jenki-spitalfields,19,8.0,44.0
+Black Cherry Matcha Latte,08/04/2025,jenki-spitalfields,20,103.0,574.0
+Black Cherry Matcha Latte,09/04/2025,jenki-spitalfields,21,134.0,745.5
+Black Cherry Matcha Latte,10/04/2025,jenki-spitalfields,22,65.0,366.5
+Black Cherry Matcha Latte,11/04/2025,jenki-spitalfields,23,129.0,715.15
+Black Cherry Matcha Latte,12/04/2025,jenki-spitalfields,24,148.0,822.3
+Black Cherry Matcha Latte,13/04/2025,jenki-spitalfields,25,124.0,690.45
+Black Cherry Matcha Latte,14/04/2025,jenki-spitalfields,26,72.0,409.8
+Black Cherry Matcha Latte,15/04/2025,jenki-spitalfields,27,82.0,453.5
+Black Cherry Matcha Latte,16/04/2025,jenki-spitalfields,28,104.0,581.3
+Black Cherry Matcha Latte,17/04/2025,jenki-spitalfields,29,108.0,604.1
+Black Cherry Matcha Latte,18/04/2025,jenki-spitalfields,30,139.0,774.0
+Black Cherry Matcha Latte,19/04/2025,jenki-spitalfields,31,122.0,682.0
+Black Cherry Matcha Latte,20/03/2025,jenki-spitalfields,1,124.0,686.5
+Black Cherry Matcha Latte,20/04/2025,jenki-spitalfields,32,87.0,485.3
+Black Cherry Matcha Latte,21/03/2025,jenki-spitalfields,2,93.0,517.5
+Black Cherry Matcha Latte,21/04/2025,jenki-spitalfields,33,80.0,445.3
+Black Cherry Matcha Latte,22/03/2025,jenki-spitalfields,3,108.0,600.0
+Black Cherry Matcha Latte,22/04/2025,jenki-spitalfields,34,89.0,497.45
+Black Cherry Matcha Latte,23/03/2025,jenki-spitalfields,4,23.0,127.0
+Black Cherry Matcha Latte,23/04/2025,jenki-spitalfields,35,52.0,292.15
+Black Cherry Matcha Latte,24/03/2025,jenki-spitalfields,5,10.0,55.0
+Black Cherry Matcha Latte,24/04/2025,jenki-spitalfields,36,117.0,655.65
+Black Cherry Matcha Latte,25/03/2025,jenki-spitalfields,6,100.0,558.0
+Black Cherry Matcha Latte,25/04/2025,jenki-spitalfields,37,113.0,627.95
+Black Cherry Matcha Latte,26/03/2025,jenki-spitalfields,7,96.0,533.5
+Black Cherry Matcha Latte,27/03/2025,jenki-spitalfields,8,48.0,268.5
+Black Cherry Matcha Latte,28/03/2025,jenki-spitalfields,9,101.0,559.0
+Black Cherry Matcha Latte,29/03/2025,jenki-spitalfields,10,149.0,823.0
+Black Cherry Matcha Latte,30/03/2025,jenki-spitalfields,11,256.0,1430.0
+Black Cherry Matcha Latte,31/03/2025,jenki-spitalfields,12,116.0,642.5
+Blackberry Matcha Latte,14/09/2024,jenki-spitalfields,1,159.0,880.5
+Blackberry Matcha Latte,15/09/2024,jenki-spitalfields,2,99.0,550.5
+Blackberry Matcha Latte,16/09/2024,jenki-spitalfields,3,34.0,188.5
+Blackberry Matcha Latte,17/09/2024,jenki-spitalfields,4,53.0,291.5
+Blackberry Matcha Latte,19/09/2024,jenki-spitalfields,6,119.0,656.0
+Blackberry Matcha Latte,20/09/2024,jenki-spitalfields,7,95.0,528.5
+Blackberry Matcha Latte,21/09/2024,jenki-spitalfields,8,91.0,500.5
+Blackberry Matcha Latte,22/09/2024,jenki-spitalfields,9,87.0,483.0
+Blackberry Matcha Latte,23/09/2024,jenki-spitalfields,10,13.0,71.5
+Blackberry Matcha Latte,24/09/2024,jenki-spitalfields,11,72.0,397.5
+Blackberry Matcha Latte,25/09/2024,jenki-spitalfields,12,72.0,399.0
+Blackberry Matcha Latte,26/09/2024,jenki-spitalfields,13,83.0,456.5
+Blackberry Matcha Latte,27/09/2024,jenki-spitalfields,14,55.0,304.0
+Blackberry Matcha Latte,28/09/2024,jenki-spitalfields,15,118.0,653.5
+Blackberry Matcha Latte,29/09/2024,jenki-spitalfields,16,132.0,729.0
+Chocolate and Peppermint Matcha Latte,01/12/2024,jenki-spitalfields,11,8.0,48.55
+Chocolate and Peppermint Matcha Latte,02/12/2024,jenki-spitalfields,12,16.0,83.71000000000001
+Chocolate and Peppermint Matcha Latte,03/12/2024,jenki-spitalfields,13,9.0,44.9
+Chocolate and Peppermint Matcha Latte,04/12/2024,jenki-spitalfields,14,16.0,87.53
+Chocolate and Peppermint Matcha Latte,05/12/2024,jenki-spitalfields,15,25.0,137.13
+Chocolate and Peppermint Matcha Latte,06/12/2024,jenki-spitalfields,16,16.0,84.32
+Chocolate and Peppermint Matcha Latte,07/12/2024,jenki-spitalfields,17,15.0,79.09
+Chocolate and Peppermint Matcha Latte,08/12/2024,jenki-spitalfields,18,8.0,41.24
+Chocolate and Peppermint Matcha Latte,09/12/2024,jenki-spitalfields,19,15.0,78.32
+Chocolate and Peppermint Matcha Latte,10/12/2024,jenki-spitalfields,20,12.0,63.24
+Chocolate and Peppermint Matcha Latte,11/12/2024,jenki-spitalfields,21,15.0,77.9
+Chocolate and Peppermint Matcha Latte,12/12/2024,jenki-spitalfields,22,21.0,108.69
+Chocolate and Peppermint Matcha Latte,13/12/2024,jenki-spitalfields,23,14.0,75.55
+Chocolate and Peppermint Matcha Latte,14/12/2024,jenki-spitalfields,24,22.0,112.72999999999999
+Chocolate and Peppermint Matcha Latte,15/12/2024,jenki-spitalfields,25,15.0,79.41
+Chocolate and Peppermint Matcha Latte,16/12/2024,jenki-spitalfields,26,12.0,66.84
+Chocolate and Peppermint Matcha Latte,17/12/2024,jenki-spitalfields,27,21.0,104.47
+Chocolate and Peppermint Matcha Latte,18/12/2024,jenki-spitalfields,28,15.0,81.45
+Chocolate and Peppermint Matcha Latte,19/12/2024,jenki-spitalfields,29,13.0,70.91
+Chocolate and Peppermint Matcha Latte,20/12/2024,jenki-spitalfields,30,22.0,110.42
+Chocolate and Peppermint Matcha Latte,21/11/2024,jenki-spitalfields,1,30.0,158.8
+Chocolate and Peppermint Matcha Latte,21/12/2024,jenki-spitalfields,31,18.0,97.97
+Chocolate and Peppermint Matcha Latte,22/11/2024,jenki-spitalfields,2,20.0,100.81
+Chocolate and Peppermint Matcha Latte,22/12/2024,jenki-spitalfields,32,7.0,35.74
+Chocolate and Peppermint Matcha Latte,23/11/2024,jenki-spitalfields,3,24.0,120.38
+Chocolate and Peppermint Matcha Latte,23/12/2024,jenki-spitalfields,33,18.0,89.82
+Chocolate and Peppermint Matcha Latte,24/11/2024,jenki-spitalfields,4,26.0,140.4
+Chocolate and Peppermint Matcha Latte,24/12/2024,jenki-spitalfields,34,6.0,31.16
+Chocolate and Peppermint Matcha Latte,25/11/2024,jenki-spitalfields,5,17.0,88.57
+Chocolate and Peppermint Matcha Latte,26/11/2024,jenki-spitalfields,6,16.0,84.07
+Chocolate and Peppermint Matcha Latte,27/11/2024,jenki-spitalfields,7,23.0,119.14
+Chocolate and Peppermint Matcha Latte,27/12/2024,jenki-spitalfields,37,7.0,37.59
+Chocolate and Peppermint Matcha Latte,28/11/2024,jenki-spitalfields,8,22.0,111.8
+Chocolate and Peppermint Matcha Latte,28/12/2024,jenki-spitalfields,38,10.0,51.32
+Chocolate and Peppermint Matcha Latte,29/11/2024,jenki-spitalfields,9,19.0,95.31
+Chocolate and Peppermint Matcha Latte,29/12/2024,jenki-spitalfields,39,9.0,52.129999999999995
+Chocolate and Peppermint Matcha Latte,30/11/2024,jenki-spitalfields,10,28.0,150.78
+Chocolate and Peppermint Matcha Latte,30/12/2024,jenki-spitalfields,40,13.0,68.74
+Chocolate and Peppermint Matcha Latte,31/12/2024,jenki-spitalfields,41,4.0,23.65
+Cinnamon Bun Matcha Latte,01/12/2024,jenki-spitalfields,11,45.0,237.73000000000002
+Cinnamon Bun Matcha Latte,02/12/2024,jenki-spitalfields,12,49.0,263.90999999999997
+Cinnamon Bun Matcha Latte,03/12/2024,jenki-spitalfields,13,51.0,267.55
+Cinnamon Bun Matcha Latte,04/12/2024,jenki-spitalfields,14,50.0,261.14
+Cinnamon Bun Matcha Latte,05/12/2024,jenki-spitalfields,15,67.0,360.27
+Cinnamon Bun Matcha Latte,06/12/2024,jenki-spitalfields,16,70.0,364.44
+Cinnamon Bun Matcha Latte,07/12/2024,jenki-spitalfields,17,54.0,278.49
+Cinnamon Bun Matcha Latte,08/12/2024,jenki-spitalfields,18,52.0,284.98
+Cinnamon Bun Matcha Latte,09/12/2024,jenki-spitalfields,19,49.0,260.53999999999996
+Cinnamon Bun Matcha Latte,10/12/2024,jenki-spitalfields,20,58.0,308.0
+Cinnamon Bun Matcha Latte,11/12/2024,jenki-spitalfields,21,55.0,293.3
+Cinnamon Bun Matcha Latte,12/12/2024,jenki-spitalfields,22,76.0,412.85
+Cinnamon Bun Matcha Latte,13/12/2024,jenki-spitalfields,23,44.0,233.60000000000002
+Cinnamon Bun Matcha Latte,14/12/2024,jenki-spitalfields,24,91.0,487.26
+Cinnamon Bun Matcha Latte,15/12/2024,jenki-spitalfields,25,58.0,311.53
+Cinnamon Bun Matcha Latte,16/12/2024,jenki-spitalfields,26,36.0,196.43
+Cinnamon Bun Matcha Latte,17/12/2024,jenki-spitalfields,27,49.0,264.64
+Cinnamon Bun Matcha Latte,18/12/2024,jenki-spitalfields,28,36.0,191.22
+Cinnamon Bun Matcha Latte,19/12/2024,jenki-spitalfields,29,50.0,258.62
+Cinnamon Bun Matcha Latte,20/12/2024,jenki-spitalfields,30,37.0,200.84
+Cinnamon Bun Matcha Latte,21/11/2024,jenki-spitalfields,1,88.0,449.06
+Cinnamon Bun Matcha Latte,21/12/2024,jenki-spitalfields,31,45.0,248.32999999999998
+Cinnamon Bun Matcha Latte,22/11/2024,jenki-spitalfields,2,78.0,407.18
+Cinnamon Bun Matcha Latte,22/12/2024,jenki-spitalfields,32,40.0,198.39
+Cinnamon Bun Matcha Latte,23/11/2024,jenki-spitalfields,3,73.0,380.46
+Cinnamon Bun Matcha Latte,23/12/2024,jenki-spitalfields,33,42.0,224.82999999999998
+Cinnamon Bun Matcha Latte,24/11/2024,jenki-spitalfields,4,58.0,311.64
+Cinnamon Bun Matcha Latte,24/12/2024,jenki-spitalfields,34,16.0,84.32
+Cinnamon Bun Matcha Latte,25/11/2024,jenki-spitalfields,5,51.0,265.61
+Cinnamon Bun Matcha Latte,26/11/2024,jenki-spitalfields,6,58.0,297.84000000000003
+Cinnamon Bun Matcha Latte,27/11/2024,jenki-spitalfields,7,48.0,247.1
+Cinnamon Bun Matcha Latte,27/12/2024,jenki-spitalfields,37,38.0,201.05
+Cinnamon Bun Matcha Latte,28/11/2024,jenki-spitalfields,8,67.0,339.09000000000003
+Cinnamon Bun Matcha Latte,28/12/2024,jenki-spitalfields,38,40.0,213.46
+Cinnamon Bun Matcha Latte,29/11/2024,jenki-spitalfields,9,64.0,347.61
+Cinnamon Bun Matcha Latte,29/12/2024,jenki-spitalfields,39,29.0,150.8
+Cinnamon Bun Matcha Latte,30/11/2024,jenki-spitalfields,10,88.0,479.94
+Cinnamon Bun Matcha Latte,30/12/2024,jenki-spitalfields,40,30.0,157.79000000000002
+Cinnamon Bun Matcha Latte,31/12/2024,jenki-spitalfields,41,22.0,119.30000000000001
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,01/05/2025,jenki-spitalfields,1,153.0,996.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,02/05/2025,jenki-spitalfields,2,222.0,1444.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,03/05/2025,jenki-spitalfields,3,187.0,1215.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,06/05/2025,jenki-spitalfields,6,110.0,718.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,07/05/2025,jenki-spitalfields,7,53.0,344.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,08/05/2025,jenki-spitalfields,8,79.0,513.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,09/05/2025,jenki-spitalfields,9,181.0,1180.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,10/05/2025,jenki-spitalfields,10,172.0,1121.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,11/05/2025,jenki-spitalfields,11,151.0,982.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,12/05/2025,jenki-spitalfields,12,95.0,621.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,13/05/2025,jenki-spitalfields,13,129.0,844.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,14/05/2025,jenki-spitalfields,14,112.0,731.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,15/05/2025,jenki-spitalfields,15,74.0,484.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,16/05/2025,jenki-spitalfields,16,152.0,991.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,17/05/2025,jenki-spitalfields,17,139.0,906.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,18/05/2025,jenki-spitalfields,18,123.0,803.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,19/05/2025,jenki-spitalfields,19,147.0,960.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,20/05/2025,jenki-spitalfields,20,71.0,461.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,21/05/2025,jenki-spitalfields,21,92.0,605.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,22/05/2025,jenki-spitalfields,22,111.0,721.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,23/05/2025,jenki-spitalfields,23,182.0,1189.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,24/05/2025,jenki-spitalfields,24,187.0,1219.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,25/05/2025,jenki-spitalfields,25,138.0,900.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,26/05/2025,jenki-spitalfields,26,118.0,767.0
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,27/05/2025,jenki-spitalfields,27,94.0,614.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,28/05/2025,jenki-spitalfields,28,145.0,947.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,29/05/2025,jenki-spitalfields,29,176.0,1150.5
+Giuseppe's Iced Pistachio Tiramisu Matcha Latte,30/05/2025,jenki-spitalfields,30,166.0,1086.5
+Jasmine + Lychee Matcha Iced Tea,01/09/2025,jenki-spitalfields,26,18.0,117.0
+Jasmine + Lychee Matcha Iced Tea,02/09/2025,jenki-spitalfields,27,15.0,97.5
+Jasmine + Lychee Matcha Iced Tea,07/08/2025,jenki-spitalfields,1,114.0,751.5
+Jasmine + Lychee Matcha Iced Tea,08/08/2025,jenki-spitalfields,2,81.0,531.0
+Jasmine + Lychee Matcha Iced Tea,09/08/2025,jenki-spitalfields,3,87.0,569.0
+Jasmine + Lychee Matcha Iced Tea,10/08/2025,jenki-spitalfields,4,68.0,449.5
+Jasmine + Lychee Matcha Iced Tea,11/08/2025,jenki-spitalfields,5,76.0,505.0
+Jasmine + Lychee Matcha Iced Tea,12/08/2025,jenki-spitalfields,6,92.0,605.5
+Jasmine + Lychee Matcha Iced Tea,13/08/2025,jenki-spitalfields,7,55.0,363.0
+Jasmine + Lychee Matcha Iced Tea,14/08/2025,jenki-spitalfields,8,72.0,473.5
+Jasmine + Lychee Matcha Iced Tea,15/08/2025,jenki-spitalfields,9,73.0,483.5
+Jasmine + Lychee Matcha Iced Tea,16/08/2025,jenki-spitalfields,10,59.0,387.0
+Jasmine + Lychee Matcha Iced Tea,17/08/2025,jenki-spitalfields,11,70.0,468.5
+Jasmine + Lychee Matcha Iced Tea,18/08/2025,jenki-spitalfields,12,42.0,278.5
+Jasmine + Lychee Matcha Iced Tea,19/08/2025,jenki-spitalfields,13,46.0,310.0
+Jasmine + Lychee Matcha Iced Tea,20/08/2025,jenki-spitalfields,14,42.0,283.0
+Jasmine + Lychee Matcha Iced Tea,21/08/2025,jenki-spitalfields,15,48.0,321.5
+Jasmine + Lychee Matcha Iced Tea,22/08/2025,jenki-spitalfields,16,45.0,296.0
+Jasmine + Lychee Matcha Iced Tea,23/08/2025,jenki-spitalfields,17,54.0,369.5
+Jasmine + Lychee Matcha Iced Tea,24/08/2025,jenki-spitalfields,18,41.0,270.5
+Jasmine + Lychee Matcha Iced Tea,25/08/2025,jenki-spitalfields,19,50.0,328.5
+Jasmine + Lychee Matcha Iced Tea,26/08/2025,jenki-spitalfields,20,24.0,156.0
+Jasmine + Lychee Matcha Iced Tea,27/08/2025,jenki-spitalfields,21,26.0,176.5
+Jasmine + Lychee Matcha Iced Tea,28/08/2025,jenki-spitalfields,22,37.0,240.5
+Jasmine + Lychee Matcha Iced Tea,29/08/2025,jenki-spitalfields,23,43.0,291.5
+Jasmine + Lychee Matcha Iced Tea,30/08/2025,jenki-spitalfields,24,53.0,354.5
+Jasmine + Lychee Matcha Iced Tea,31/08/2025,jenki-spitalfields,25,44.0,288.0
+Mint Matcha Latte,01/09/2025,jenki-spitalfields,26,12.0,79.5
+Mint Matcha Latte,02/09/2025,jenki-spitalfields,27,10.0,69.5
+Mint Matcha Latte,07/08/2025,jenki-spitalfields,1,47.0,305.5
+Mint Matcha Latte,08/08/2025,jenki-spitalfields,2,38.0,247.0
+Mint Matcha Latte,09/08/2025,jenki-spitalfields,3,45.0,297.5
+Mint Matcha Latte,10/08/2025,jenki-spitalfields,4,37.0,246.5
+Mint Matcha Latte,11/08/2025,jenki-spitalfields,5,41.0,276.5
+Mint Matcha Latte,12/08/2025,jenki-spitalfields,6,25.0,162.5
+Mint Matcha Latte,13/08/2025,jenki-spitalfields,7,28.0,185.5
+Mint Matcha Latte,14/08/2025,jenki-spitalfields,8,31.0,208.5
+Mint Matcha Latte,15/08/2025,jenki-spitalfields,9,26.0,171.0
+Mint Matcha Latte,16/08/2025,jenki-spitalfields,10,24.0,157.5
+Mint Matcha Latte,17/08/2025,jenki-spitalfields,11,33.0,218.0
+Mint Matcha Latte,18/08/2025,jenki-spitalfields,12,17.0,111.0
+Mint Matcha Latte,19/08/2025,jenki-spitalfields,13,19.0,129.0
+Mint Matcha Latte,20/08/2025,jenki-spitalfields,14,16.0,111.5
+Mint Matcha Latte,21/08/2025,jenki-spitalfields,15,18.0,124.5
+Mint Matcha Latte,22/08/2025,jenki-spitalfields,16,15.0,101.0
+Mint Matcha Latte,23/08/2025,jenki-spitalfields,17,13.0,84.5
+Mint Matcha Latte,24/08/2025,jenki-spitalfields,18,22.0,157.5
+Mint Matcha Latte,25/08/2025,jenki-spitalfields,19,36.0,234.5
+Mint Matcha Latte,26/08/2025,jenki-spitalfields,20,16.0,115.0
+Mint Matcha Latte,27/08/2025,jenki-spitalfields,21,14.0,92.5
+Mint Matcha Latte,28/08/2025,jenki-spitalfields,22,14.0,92.5
+Mint Matcha Latte,29/08/2025,jenki-spitalfields,23,17.0,112.0
+Mint Matcha Latte,30/08/2025,jenki-spitalfields,24,23.0,151.5
+Mint Matcha Latte,31/08/2025,jenki-spitalfields,25,17.0,112.5
+Pink Grapefruit Matcha Tonic,01/09/2025,jenki-spitalfields,26,8.0,53.17
+Pink Grapefruit Matcha Tonic,02/09/2025,jenki-spitalfields,27,5.0,31.42
+Pink Grapefruit Matcha Tonic,07/08/2025,jenki-spitalfields,1,18.0,114.84
+Pink Grapefruit Matcha Tonic,08/08/2025,jenki-spitalfields,2,31.0,200.42
+Pink Grapefruit Matcha Tonic,09/08/2025,jenki-spitalfields,3,23.0,150.92
+Pink Grapefruit Matcha Tonic,10/08/2025,jenki-spitalfields,4,25.0,153.86
+Pink Grapefruit Matcha Tonic,11/08/2025,jenki-spitalfields,5,24.0,159.0
+Pink Grapefruit Matcha Tonic,12/08/2025,jenki-spitalfields,6,18.0,115.92
+Pink Grapefruit Matcha Tonic,13/08/2025,jenki-spitalfields,7,14.0,91.0
+Pink Grapefruit Matcha Tonic,14/08/2025,jenki-spitalfields,8,29.0,186.34
+Pink Grapefruit Matcha Tonic,15/08/2025,jenki-spitalfields,9,19.0,119.18
+Pink Grapefruit Matcha Tonic,16/08/2025,jenki-spitalfields,10,17.0,110.0
+Pink Grapefruit Matcha Tonic,17/08/2025,jenki-spitalfields,11,25.0,160.84
+Pink Grapefruit Matcha Tonic,18/08/2025,jenki-spitalfields,12,9.0,59.58
+Pink Grapefruit Matcha Tonic,19/08/2025,jenki-spitalfields,13,9.0,60.58
+Pink Grapefruit Matcha Tonic,20/08/2025,jenki-spitalfields,14,7.0,41.18
+Pink Grapefruit Matcha Tonic,21/08/2025,jenki-spitalfields,15,11.0,73.0
+Pink Grapefruit Matcha Tonic,22/08/2025,jenki-spitalfields,16,16.0,99.68
+Pink Grapefruit Matcha Tonic,23/08/2025,jenki-spitalfields,17,10.0,62.84
+Pink Grapefruit Matcha Tonic,24/08/2025,jenki-spitalfields,18,8.0,54.08
+Pink Grapefruit Matcha Tonic,25/08/2025,jenki-spitalfields,19,16.0,104.58
+Pink Grapefruit Matcha Tonic,26/08/2025,jenki-spitalfields,20,5.0,32.5
+Pink Grapefruit Matcha Tonic,27/08/2025,jenki-spitalfields,21,11.0,71.5
+Pink Grapefruit Matcha Tonic,28/08/2025,jenki-spitalfields,22,12.0,78.0
+Pink Grapefruit Matcha Tonic,29/08/2025,jenki-spitalfields,23,12.0,77.5
+Pink Grapefruit Matcha Tonic,30/08/2025,jenki-spitalfields,24,11.0,71.5
+Pink Grapefruit Matcha Tonic,31/08/2025,jenki-spitalfields,25,7.0,45.5
+Pumpkin Spiced Matcha Latte,01/11/2024,jenki-spitalfields,28,41.0,204.37
+Pumpkin Spiced Matcha Latte,02/11/2024,jenki-spitalfields,29,34.0,178.05
+Pumpkin Spiced Matcha Latte,03/11/2024,jenki-spitalfields,30,35.0,176.2
+Pumpkin Spiced Matcha Latte,04/11/2024,jenki-spitalfields,31,35.0,176.89
+Pumpkin Spiced Matcha Latte,05/10/2024,jenki-spitalfields,1,84.0,450.62
+Pumpkin Spiced Matcha Latte,05/11/2024,jenki-spitalfields,32,30.0,149.37
+Pumpkin Spiced Matcha Latte,06/10/2024,jenki-spitalfields,2,71.0,365.08000000000004
+Pumpkin Spiced Matcha Latte,06/11/2024,jenki-spitalfields,33,34.0,170.29000000000002
+Pumpkin Spiced Matcha Latte,07/10/2024,jenki-spitalfields,3,47.0,245.63
+Pumpkin Spiced Matcha Latte,07/11/2024,jenki-spitalfields,34,33.0,161.84
+Pumpkin Spiced Matcha Latte,08/10/2024,jenki-spitalfields,4,60.0,304.28
+Pumpkin Spiced Matcha Latte,08/11/2024,jenki-spitalfields,35,28.0,141.15
+Pumpkin Spiced Matcha Latte,09/10/2024,jenki-spitalfields,5,62.0,319.85
+Pumpkin Spiced Matcha Latte,09/11/2024,jenki-spitalfields,36,50.0,247.08
+Pumpkin Spiced Matcha Latte,10/10/2024,jenki-spitalfields,6,56.0,286.52
+Pumpkin Spiced Matcha Latte,10/11/2024,jenki-spitalfields,37,40.0,197.0
+Pumpkin Spiced Matcha Latte,11/10/2024,jenki-spitalfields,7,57.0,289.62
+Pumpkin Spiced Matcha Latte,11/11/2024,jenki-spitalfields,38,51.0,245.89
+Pumpkin Spiced Matcha Latte,12/10/2024,jenki-spitalfields,8,77.0,392.82
+Pumpkin Spiced Matcha Latte,12/11/2024,jenki-spitalfields,39,35.0,176.2
+Pumpkin Spiced Matcha Latte,13/10/2024,jenki-spitalfields,9,51.0,255.44
+Pumpkin Spiced Matcha Latte,13/11/2024,jenki-spitalfields,40,29.0,140.19
+Pumpkin Spiced Matcha Latte,14/10/2024,jenki-spitalfields,10,47.0,228.09
+Pumpkin Spiced Matcha Latte,15/10/2024,jenki-spitalfields,11,54.0,275.84000000000003
+Pumpkin Spiced Matcha Latte,16/10/2024,jenki-spitalfields,12,65.0,337.25
+Pumpkin Spiced Matcha Latte,17/10/2024,jenki-spitalfields,13,62.0,322.69
+Pumpkin Spiced Matcha Latte,18/10/2024,jenki-spitalfields,14,39.0,201.61
+Pumpkin Spiced Matcha Latte,19/10/2024,jenki-spitalfields,15,47.0,241.03
+Pumpkin Spiced Matcha Latte,20/10/2024,jenki-spitalfields,16,29.0,148.47
+Pumpkin Spiced Matcha Latte,21/10/2024,jenki-spitalfields,17,40.0,205.87
+Pumpkin Spiced Matcha Latte,22/10/2024,jenki-spitalfields,18,58.0,294.82
+Pumpkin Spiced Matcha Latte,23/10/2024,jenki-spitalfields,19,53.0,272.21
+Pumpkin Spiced Matcha Latte,24/10/2024,jenki-spitalfields,20,62.0,318.25
+Pumpkin Spiced Matcha Latte,25/10/2024,jenki-spitalfields,21,35.0,177.78
+Pumpkin Spiced Matcha Latte,26/10/2024,jenki-spitalfields,22,58.0,298.78
+Pumpkin Spiced Matcha Latte,27/10/2024,jenki-spitalfields,23,68.0,357.43
+Pumpkin Spiced Matcha Latte,28/10/2024,jenki-spitalfields,24,33.0,172.56
+Pumpkin Spiced Matcha Latte,29/10/2024,jenki-spitalfields,25,48.0,238.84
+Pumpkin Spiced Matcha Latte,30/10/2024,jenki-spitalfields,26,46.0,236.69
+Pumpkin Spiced Matcha Latte,31/10/2024,jenki-spitalfields,27,55.0,278.90999999999997
+Salted Vanilla Latte (2nd Intro),01/10/2024,jenki-spitalfields,6,53.0,282.31
+Salted Vanilla Latte (2nd Intro),01/11/2024,jenki-spitalfields,37,75.0,404.23
+Salted Vanilla Latte (2nd Intro),02/10/2024,jenki-spitalfields,7,94.0,505.62
+Salted Vanilla Latte (2nd Intro),02/11/2024,jenki-spitalfields,38,128.0,691.55
+Salted Vanilla Latte (2nd Intro),03/10/2024,jenki-spitalfields,8,105.0,568.2
+Salted Vanilla Latte (2nd Intro),03/11/2024,jenki-spitalfields,39,94.0,499.76
+Salted Vanilla Latte (2nd Intro),04/10/2024,jenki-spitalfields,9,96.0,526.64
+Salted Vanilla Latte (2nd Intro),04/11/2024,jenki-spitalfields,40,62.0,329.63
+Salted Vanilla Latte (2nd Intro),05/10/2024,jenki-spitalfields,10,109.0,598.24
+Salted Vanilla Latte (2nd Intro),05/11/2024,jenki-spitalfields,41,56.0,305.22
+Salted Vanilla Latte (2nd Intro),06/10/2024,jenki-spitalfields,11,79.0,430.14
+Salted Vanilla Latte (2nd Intro),06/11/2024,jenki-spitalfields,42,65.0,345.2
+Salted Vanilla Latte (2nd Intro),07/10/2024,jenki-spitalfields,12,86.0,469.56
+Salted Vanilla Latte (2nd Intro),07/11/2024,jenki-spitalfields,43,74.0,392.53
+Salted Vanilla Latte (2nd Intro),08/10/2024,jenki-spitalfields,13,87.0,470.23
+Salted Vanilla Latte (2nd Intro),08/11/2024,jenki-spitalfields,44,66.0,353.48
+Salted Vanilla Latte (2nd Intro),09/10/2024,jenki-spitalfields,14,75.0,403.2
+Salted Vanilla Latte (2nd Intro),09/11/2024,jenki-spitalfields,45,100.0,537.95
+Salted Vanilla Latte (2nd Intro),10/10/2024,jenki-spitalfields,15,85.0,458.88
+Salted Vanilla Latte (2nd Intro),10/11/2024,jenki-spitalfields,46,84.0,436.26
+Salted Vanilla Latte (2nd Intro),11/10/2024,jenki-spitalfields,16,94.0,515.14
+Salted Vanilla Latte (2nd Intro),11/11/2024,jenki-spitalfields,47,9.0,46.74
+Salted Vanilla Latte (2nd Intro),12/10/2024,jenki-spitalfields,17,126.0,683.13
+Salted Vanilla Latte (2nd Intro),12/11/2024,jenki-spitalfields,48,57.0,305.22
+Salted Vanilla Latte (2nd Intro),13/10/2024,jenki-spitalfields,18,93.0,483.95
+Salted Vanilla Latte (2nd Intro),13/11/2024,jenki-spitalfields,49,68.0,358.61
+Salted Vanilla Latte (2nd Intro),14/10/2024,jenki-spitalfields,19,40.0,213.56
+Salted Vanilla Latte (2nd Intro),14/11/2024,jenki-spitalfields,50,84.0,456.71
+Salted Vanilla Latte (2nd Intro),15/10/2024,jenki-spitalfields,20,90.0,486.05
+Salted Vanilla Latte (2nd Intro),15/11/2024,jenki-spitalfields,51,51.0,273.05
+Salted Vanilla Latte (2nd Intro),16/10/2024,jenki-spitalfields,21,61.0,329.98
+Salted Vanilla Latte (2nd Intro),16/11/2024,jenki-spitalfields,52,92.0,484.5
+Salted Vanilla Latte (2nd Intro),17/10/2024,jenki-spitalfields,22,96.0,525.64
+Salted Vanilla Latte (2nd Intro),17/11/2024,jenki-spitalfields,53,78.0,410.02
+Salted Vanilla Latte (2nd Intro),18/10/2024,jenki-spitalfields,23,71.0,385.22
+Salted Vanilla Latte (2nd Intro),18/11/2024,jenki-spitalfields,54,45.0,238.89
+Salted Vanilla Latte (2nd Intro),19/10/2024,jenki-spitalfields,24,111.0,602.82
+Salted Vanilla Latte (2nd Intro),19/11/2024,jenki-spitalfields,55,41.0,211.12
+Salted Vanilla Latte (2nd Intro),20/10/2024,jenki-spitalfields,25,84.0,459.23
+Salted Vanilla Latte (2nd Intro),20/11/2024,jenki-spitalfields,56,65.0,343.02
+Salted Vanilla Latte (2nd Intro),21/10/2024,jenki-spitalfields,26,58.0,314.22
+Salted Vanilla Latte (2nd Intro),21/11/2024,jenki-spitalfields,57,41.0,212.03
+Salted Vanilla Latte (2nd Intro),22/10/2024,jenki-spitalfields,27,83.0,449.39
+Salted Vanilla Latte (2nd Intro),22/11/2024,jenki-spitalfields,58,45.0,237.38
+Salted Vanilla Latte (2nd Intro),23/10/2024,jenki-spitalfields,28,92.0,492.22
+Salted Vanilla Latte (2nd Intro),23/11/2024,jenki-spitalfields,59,60.0,315.94
+Salted Vanilla Latte (2nd Intro),24/10/2024,jenki-spitalfields,29,95.0,517.72
+Salted Vanilla Latte (2nd Intro),24/11/2024,jenki-spitalfields,60,60.0,324.48
+Salted Vanilla Latte (2nd Intro),25/10/2024,jenki-spitalfields,30,87.0,475.73
+Salted Vanilla Latte (2nd Intro),25/11/2024,jenki-spitalfields,61,52.0,278.65
+Salted Vanilla Latte (2nd Intro),26/09/2024,jenki-spitalfields,1,127.0,703.58
+Salted Vanilla Latte (2nd Intro),26/10/2024,jenki-spitalfields,31,133.0,721.97
+Salted Vanilla Latte (2nd Intro),26/11/2024,jenki-spitalfields,62,44.0,239.48
+Salted Vanilla Latte (2nd Intro),27/09/2024,jenki-spitalfields,2,95.0,508.03
+Salted Vanilla Latte (2nd Intro),27/10/2024,jenki-spitalfields,32,110.0,596.72
+Salted Vanilla Latte (2nd Intro),27/11/2024,jenki-spitalfields,63,50.0,264.89
+Salted Vanilla Latte (2nd Intro),28/09/2024,jenki-spitalfields,3,117.0,638.23
+Salted Vanilla Latte (2nd Intro),28/10/2024,jenki-spitalfields,33,72.0,385.12
+Salted Vanilla Latte (2nd Intro),28/11/2024,jenki-spitalfields,64,62.0,318.02
+Salted Vanilla Latte (2nd Intro),29/10/2024,jenki-spitalfields,34,76.0,411.8
+Salted Vanilla Latte (2nd Intro),29/11/2024,jenki-spitalfields,65,39.0,202.54
+Salted Vanilla Latte (2nd Intro),30/10/2024,jenki-spitalfields,35,67.0,364.06
+Salted Vanilla Latte (2nd Intro),30/11/2024,jenki-spitalfields,66,84.0,452.13
+Salted Vanilla Latte (2nd Intro),31/10/2024,jenki-spitalfields,36,92.0,496.64
+Strawberry Elderflower Matcha Latte,01/07/2025,jenki-spitalfields,27,180.0,1019.7
+Strawberry Elderflower Matcha Latte,01/08/2025,jenki-spitalfields,58,142.0,814.3
+Strawberry Elderflower Matcha Latte,02/07/2025,jenki-spitalfields,28,134.0,770.05
+Strawberry Elderflower Matcha Latte,03/07/2025,jenki-spitalfields,29,159.0,898.45
+Strawberry Elderflower Matcha Latte,04/07/2025,jenki-spitalfields,30,233.0,1318.5
+Strawberry Elderflower Matcha Latte,05/06/2025,jenki-spitalfields,1,184.0,1018.0
+Strawberry Elderflower Matcha Latte,05/07/2025,jenki-spitalfields,31,210.0,1176.05
+Strawberry Elderflower Matcha Latte,06/06/2025,jenki-spitalfields,2,245.0,1357.5
+Strawberry Elderflower Matcha Latte,06/07/2025,jenki-spitalfields,32,202.0,1134.1
+Strawberry Elderflower Matcha Latte,07/06/2025,jenki-spitalfields,3,128.0,710.5
+Strawberry Elderflower Matcha Latte,07/07/2025,jenki-spitalfields,33,37.0,205.0
+Strawberry Elderflower Matcha Latte,08/06/2025,jenki-spitalfields,4,157.0,867.0
+Strawberry Elderflower Matcha Latte,08/07/2025,jenki-spitalfields,34,138.0,764.8
+Strawberry Elderflower Matcha Latte,09/06/2025,jenki-spitalfields,5,49.0,274.0
+Strawberry Elderflower Matcha Latte,09/07/2025,jenki-spitalfields,35,193.0,1095.8
+Strawberry Elderflower Matcha Latte,10/06/2025,jenki-spitalfields,6,201.0,1116.5
+Strawberry Elderflower Matcha Latte,10/07/2025,jenki-spitalfields,36,105.0,585.45
+Strawberry Elderflower Matcha Latte,11/06/2025,jenki-spitalfields,7,230.0,1297.15
+Strawberry Elderflower Matcha Latte,11/07/2025,jenki-spitalfields,37,189.0,1058.05
+Strawberry Elderflower Matcha Latte,12/06/2025,jenki-spitalfields,8,228.0,1277.55
+Strawberry Elderflower Matcha Latte,12/07/2025,jenki-spitalfields,38,205.0,1146.75
+Strawberry Elderflower Matcha Latte,13/06/2025,jenki-spitalfields,9,220.0,1215.5
+Strawberry Elderflower Matcha Latte,13/07/2025,jenki-spitalfields,39,168.0,948.7
+Strawberry Elderflower Matcha Latte,14/06/2025,jenki-spitalfields,10,252.0,1405.05
+Strawberry Elderflower Matcha Latte,14/07/2025,jenki-spitalfields,40,81.0,460.75
+Strawberry Elderflower Matcha Latte,15/06/2025,jenki-spitalfields,11,186.0,1032.3
+Strawberry Elderflower Matcha Latte,15/07/2025,jenki-spitalfields,41,146.0,818.3
+Strawberry Elderflower Matcha Latte,16/06/2025,jenki-spitalfields,12,155.0,873.25
+Strawberry Elderflower Matcha Latte,16/07/2025,jenki-spitalfields,42,133.0,743.8
+Strawberry Elderflower Matcha Latte,17/06/2025,jenki-spitalfields,13,218.0,1230.6
+Strawberry Elderflower Matcha Latte,17/07/2025,jenki-spitalfields,43,164.0,922.7
+Strawberry Elderflower Matcha Latte,18/06/2025,jenki-spitalfields,14,226.0,1278.25
+Strawberry Elderflower Matcha Latte,18/07/2025,jenki-spitalfields,44,193.0,1088.4
+Strawberry Elderflower Matcha Latte,19/06/2025,jenki-spitalfields,15,147.0,826.35
+Strawberry Elderflower Matcha Latte,19/07/2025,jenki-spitalfields,45,162.0,916.35
+Strawberry Elderflower Matcha Latte,20/06/2025,jenki-spitalfields,16,197.0,1097.95
+Strawberry Elderflower Matcha Latte,20/07/2025,jenki-spitalfields,46,148.0,827.1
+Strawberry Elderflower Matcha Latte,21/06/2025,jenki-spitalfields,17,213.0,1190.9
+Strawberry Elderflower Matcha Latte,21/07/2025,jenki-spitalfields,47,134.0,759.55
+Strawberry Elderflower Matcha Latte,22/06/2025,jenki-spitalfields,18,5.0,34.1
+Strawberry Elderflower Matcha Latte,22/07/2025,jenki-spitalfields,48,119.0,670.45
+Strawberry Elderflower Matcha Latte,23/07/2025,jenki-spitalfields,49,165.0,931.75
+Strawberry Elderflower Matcha Latte,24/06/2025,jenki-spitalfields,20,146.0,821.4
+Strawberry Elderflower Matcha Latte,24/07/2025,jenki-spitalfields,50,121.0,688.05
+Strawberry Elderflower Matcha Latte,25/06/2025,jenki-spitalfields,21,189.0,1072.3
+Strawberry Elderflower Matcha Latte,25/07/2025,jenki-spitalfields,51,165.0,932.05
+Strawberry Elderflower Matcha Latte,26/06/2025,jenki-spitalfields,22,176.0,990.05
+Strawberry Elderflower Matcha Latte,26/07/2025,jenki-spitalfields,52,207.0,1156.25
+Strawberry Elderflower Matcha Latte,27/06/2025,jenki-spitalfields,23,179.0,1007.05
+Strawberry Elderflower Matcha Latte,27/07/2025,jenki-spitalfields,53,168.0,943.75
+Strawberry Elderflower Matcha Latte,28/06/2025,jenki-spitalfields,24,216.0,1213.4
+Strawberry Elderflower Matcha Latte,28/07/2025,jenki-spitalfields,54,144.0,820.5
+Strawberry Elderflower Matcha Latte,29/06/2025,jenki-spitalfields,25,229.0,1296.15
+Strawberry Elderflower Matcha Latte,29/07/2025,jenki-spitalfields,55,131.0,749.05
+Strawberry Elderflower Matcha Latte,30/06/2025,jenki-spitalfields,26,39.0,221.45
+Strawberry Elderflower Matcha Latte,30/07/2025,jenki-spitalfields,56,133.0,753.7
+Strawberry Elderflower Matcha Latte,31/07/2025,jenki-spitalfields,57,170.0,956.9

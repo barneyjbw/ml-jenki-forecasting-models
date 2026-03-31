@@ -1,0 +1,24 @@
+# Environment / secrets
+.env
+
+# Model artifacts
+models/*.pkl
+data/peer_forecasts/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Plots (generated)
+plots/
+
+# GCS credentials
+*.json
+!data/event_scores/*.json
+!data/venue_events/*.json
+
+# Large files (>100MB) — currently over limit
+data/source-data/PCD_OA21_LSOA21_MSOA21_LAD_FEB25_UK_LU.csv
+data/source-data/sapeoatablefinal2022v2.xlsx
