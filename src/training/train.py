@@ -69,6 +69,7 @@ def _build_model(location: str) -> Prophet:
         daily_seasonality=False,
         seasonality_mode="multiplicative",
         changepoint_prior_scale=cps,
+        uncertainty_samples=0,  # disable Stan sampling at predict time — CI computed empirically
     )
     for reg in _regressors(location):
         model.add_regressor(reg)

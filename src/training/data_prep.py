@@ -16,6 +16,7 @@ from functools import lru_cache
 
 import requests
 import pandas as pd
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from src.utils.logging import get_logger
 
@@ -236,10 +237,25 @@ def _fetch_weather(start_date: str, end_date: str, lat: float, lng: float) -> pd
         "daily": ",".join(WEATHER_VARIABLES),
         "timezone": "Europe/London",
     }
-    resp = requests.get(url, params=params, timeout=30)
-    resp.raise_for_status()
-    data = resp.json()["daily"]
+
+    @retry(
+        retry=retry_if_exception_type(Exception),
+        wait=wait_exponential(multiplier=1, min=5, max=60),
+        stop=stop_after_attempt(3),
+        reraise=True,
+    )
+    def _get():
+        r = requests.get(url, params=params, timeout=30)
+        r.raise_for_status()
+        return r.json()
+
+    data = _get()["daily"]
     df = pd.DataFrame(data)
+
+    missing_cols = [c for c in WEATHER_VARIABLES if c not in df.columns]
+    if missing_cols:
+        raise ValueError(f"Weather API response missing expected columns: {missing_cols}")
+
     df["time"] = pd.to_datetime(df["time"])
     return df.rename(columns={"time": "ds"})
 
@@ -247,19 +263,30 @@ def _fetch_weather(start_date: str, end_date: str, lat: float, lng: float) -> pd
 def _load_revenue(location: str) -> pd.DataFrame:
     files = _list_csvs(location)
     if not files:
-        raise FileNotFoundError(f"No CSV files found for '{location}' in {folder}")
+        source = GCS_LOCATIONS.get(location) if DATA_SOURCE == "gcs" else LOCATIONS.get(location)
+        raise FileNotFoundError(f"No CSV files found for '{location}' in {source}")
 
     rows = []
+    failed = 0
     for f in files:
         date_str = _extract_date(Path(f).name)
         if not date_str:
             continue
         try:
             df = _read_csv(f)
+            if "Total Sales" not in df.columns:
+                raise ValueError(f"Missing 'Total Sales' column — got: {list(df.columns[:5])}")
             revenue = df["Total Sales"].sum()
             rows.append({"ds": date_str, "y": revenue})
         except Exception as e:
-            logger.info(f"Skipping {f}: {e}")
+            logger.warning(f"Skipping {f}: {e}")
+            failed += 1
+
+    if failed and len(files) > 0 and failed / len(files) > 0.2:
+        logger.warning(
+            f"{location}: {failed}/{len(files)} CSV files failed to parse "
+            f"— possible Revel format change"
+        )
 
     daily = pd.DataFrame(rows)
     daily["ds"] = pd.to_datetime(daily["ds"])
@@ -376,8 +403,14 @@ def load_training_data(location: str) -> pd.DataFrame:
 
     missing = df[ALL_REGRESSORS].isnull().sum()
     if missing.any():
-        logger.info(f"{location}: missing values:\n{missing[missing > 0]}")
-        df = df.dropna(subset=ALL_REGRESSORS)
+        logger.warning(f"{location}: NaN values in regressors — forward-filling before dropping:\n{missing[missing > 0]}")
+        for col in ALL_REGRESSORS:
+            if df[col].isnull().any():
+                df[col] = df[col].ffill().bfill()
+        remaining = df[ALL_REGRESSORS].isnull().sum().sum()
+        if remaining:
+            logger.warning(f"{location}: {remaining} NaN values remain after fill — dropping affected rows")
+            df = df.dropna(subset=ALL_REGRESSORS)
 
     logger.info(
         f"{location}: {len(df)} days, "
@@ -385,3 +418,33 @@ def load_training_data(location: str) -> pd.DataFrame:
         f"revenue £{df['y'].sum():,.2f}"
     )
     return df.reset_index(drop=True)
+
+
+# ---------------------------------------------------------------------------
+# GCS training parquet cache
+# ---------------------------------------------------------------------------
+
+TRAINING_PARQUET_ROOT = "gs://jenki-forecast/training-data"
+
+
+def save_training_parquet(location: str, df: pd.DataFrame) -> None:
+    """Upload the full feature DataFrame to GCS as a parquet file."""
+    from src.utils.gcs import upload_bytes
+    uri = f"{TRAINING_PARQUET_ROOT}/{location}.parquet"
+    buf = io.BytesIO()
+    df.to_parquet(buf, index=False)
+    upload_bytes(buf.getvalue(), uri, "application/octet-stream")
+    logger.info(f"{location}: training parquet saved → {uri} ({len(df)} rows)")
+
+
+def load_training_parquet(location: str) -> pd.DataFrame | None:
+    """Download the training parquet from GCS. Returns None if it doesn't exist yet."""
+    from src.utils.gcs import download_bytes
+    uri = f"{TRAINING_PARQUET_ROOT}/{location}.parquet"
+    try:
+        data = download_bytes(uri)
+        df = pd.read_parquet(io.BytesIO(data))
+        logger.info(f"{location}: loaded training parquet ({len(df)} rows, up to {df['ds'].max().date()})")
+        return df
+    except Exception:
+        return None

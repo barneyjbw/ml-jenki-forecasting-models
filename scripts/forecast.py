@@ -18,12 +18,13 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import requests
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from src.training.data_prep import (
     LOCATIONS, JENKI_COORDS, WEATHER_VARIABLES,
-    _get_footfall_features, _load_revenue,
+    _get_footfall_features, _load_revenue, load_training_data,
 )
-from src.training.train import _regressors
+from src.training.train import _regressors, MODEL_CONFIG
 from src.utils.gcs import upload_bytes
 from src.utils.logging import get_logger
 
@@ -55,9 +56,24 @@ def fetch_weather_forecast(start_date: str, end_date: str, lat: float, lng: floa
         "daily":      ",".join(WEATHER_VARIABLES),
         "timezone":   "Europe/London",
     }
-    resp = requests.get("https://api.open-meteo.com/v1/forecast", params=params, timeout=30)
-    resp.raise_for_status()
-    df = pd.DataFrame(resp.json()["daily"])
+
+    @retry(
+        retry=retry_if_exception_type(Exception),
+        wait=wait_exponential(multiplier=1, min=5, max=60),
+        stop=stop_after_attempt(3),
+        reraise=True,
+    )
+    def _get():
+        r = requests.get("https://api.open-meteo.com/v1/forecast", params=params, timeout=30)
+        r.raise_for_status()
+        return r.json()
+
+    data = _get()["daily"]
+    missing_cols = [c for c in WEATHER_VARIABLES if c not in data]
+    if missing_cols:
+        raise ValueError(f"Weather forecast API missing columns: {missing_cols}")
+
+    df = pd.DataFrame(data)
     df["time"] = pd.to_datetime(df["time"])
     return df.rename(columns={"time": "ds"})
 
@@ -89,6 +105,12 @@ def build_future_df(location: str, start: str, end: str, regs: list) -> pd.DataF
     df = df.merge(weather,  on="ds", how="left")
     df = df.merge(footfall, on="ds", how="left")
 
+    # Forward-fill any missing weather values (partial API response or date gap)
+    for col in WEATHER_VARIABLES:
+        if df[col].isnull().any():
+            logger.warning(f"{location}: NaN in weather column '{col}' — forward-filling")
+            df[col] = df[col].ffill().bfill()
+
     # Derived features — identical to training pipeline
     df["temp_sq"]   = (df["apparent_temperature_max"] - 15.0) ** 2
     df["rainy_day"] = (df["precipitation_sum"] > 1.0).astype(float)
@@ -110,17 +132,48 @@ def build_future_df(location: str, start: str, end: str, regs: list) -> pd.DataF
 
 
 # ---------------------------------------------------------------------------
+# Empirical confidence intervals
+# ---------------------------------------------------------------------------
+
+def _empirical_bounds(
+    location: str, saved: dict, yhat: np.ndarray, future_dates: pd.DatetimeIndex
+) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Compute ±1.5× day-of-week MAE bounds from in-sample residuals.
+    1.5× MAE ≈ 90% coverage under a Laplace error distribution.
+    Far more useful than Prophet's ±54% simulated bands.
+    """
+    log_y = saved.get("log_y", False)
+    regs  = saved["regressors"]
+    model = saved["model"]
+
+    df = load_training_data(location)
+    fc_in = model.predict(df[["ds"] + regs])
+    yhat_in = np.maximum(np.expm1(fc_in["yhat"].values) if log_y else fc_in["yhat"].values, 0.0)
+
+    abs_err = np.abs(df["y"].values - yhat_in)
+    df_err  = pd.DataFrame({"dow": df["ds"].dt.dayofweek, "err": abs_err})
+    dow_mae = df_err.groupby("dow")["err"].mean()
+
+    future_dows = pd.to_datetime(future_dates).dt.dayofweek
+    sigma = np.array([dow_mae.get(d, dow_mae.mean()) for d in future_dows])
+
+    return np.maximum(yhat - 1.5 * sigma, 0.0), yhat + 1.5 * sigma
+
+
+# ---------------------------------------------------------------------------
 # Core inference
 # ---------------------------------------------------------------------------
 
-def run_forecast(location: str) -> pd.DataFrame:
-    """Run inference. Returns: date, predicted_revenue, lower_95, upper_95."""
+def run_forecast(location: str, model_dir: Path | None = None) -> pd.DataFrame:
+    """Run inference. Returns: date, predicted_revenue, lower_bound, upper_bound."""
+    _model_dir = model_dir or MODEL_DIR
     horizon = FORECAST_HORIZON[location]
     start   = date.today().strftime("%Y-%m-%d")
     end     = (date.today() + timedelta(days=horizon - 1)).strftime("%Y-%m-%d")
     logger.info(f"{location}: forecasting {start} → {end}")
 
-    with open(MODEL_DIR / f"{location}.pkl", "rb") as f:
+    with open(_model_dir / f"{location}.pkl", "rb") as f:
         saved = pickle.load(f)
     model = saved["model"]
     log_y = saved.get("log_y", False)
@@ -132,11 +185,22 @@ def run_forecast(location: str) -> pd.DataFrame:
     def _out(arr: np.ndarray) -> np.ndarray:
         return np.maximum(np.expm1(arr) if log_y else arr, 0.0)
 
+    yhat  = _out(fc["yhat"].values)
+
+    nan_count = int(np.isnan(yhat).sum())
+    if nan_count:
+        raise ValueError(
+            f"{location}: model produced {nan_count} NaN prediction(s) — "
+            f"likely NaN in regressors. Check weather/footfall data."
+        )
+
+    lower, upper = _empirical_bounds(location, saved, yhat, future["ds"])
+
     result = pd.DataFrame({
         "date":              future["ds"].dt.strftime("%Y-%m-%d"),
-        "predicted_revenue": np.round(_out(fc["yhat"].values),       2),
-        "lower_95":          np.round(_out(fc["yhat_lower"].values), 2),
-        "upper_95":          np.round(_out(fc["yhat_upper"].values), 2),
+        "predicted_revenue": np.round(yhat,  2),
+        "lower_bound":       np.round(lower, 2),
+        "upper_bound":       np.round(upper, 2),
     })
     logger.info(f"{location}: forecast ready\n{result.to_string(index=False)}")
     return result

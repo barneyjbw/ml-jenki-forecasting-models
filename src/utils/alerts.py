@@ -67,12 +67,15 @@ def alert_data_quarantine(location: str, dates: list[str], reason: str) -> None:
 
 
 def alert_structural_break(location: str, recent_avg: float, baseline_avg: float) -> None:
-    drop_pct = (baseline_avg - recent_avg) / baseline_avg * 100
+    pct_str = (
+        f"`-{(baseline_avg - recent_avg) / baseline_avg * 100:.0f}%`"
+        if baseline_avg > 0 else "(baseline was zero)"
+    )
     _post({
         "text": (
             f":rotating_light: *Structural break detected* — `{location}`\n"
             f"7-day avg: `£{recent_avg:,.0f}`  |  28-day baseline: `£{baseline_avg:,.0f}`  "
-            f"(`-{drop_pct:.0f}%`)\n"
+            f"({pct_str})\n"
             f"_Retraining paused for this location pending review._"
         )
     })
