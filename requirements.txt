@@ -6,3 +6,4 @@ holidays==0.61
 tenacity==9.0.0
 google-genai>=1.0.0
 python-dotenv>=1.0.0
+pyarrow>=14.0.0

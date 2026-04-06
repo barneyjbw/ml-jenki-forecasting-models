@@ -1,0 +1,15 @@
+.gcloudignore
+.git
+.gitignore
+.env
+.claude
+data/
+models/
+plots/
+experiments/
+RND.md
+eval_plot.png
+**/__pycache__
+**/*.pyc
+**/*.pyo
+*.pkl
