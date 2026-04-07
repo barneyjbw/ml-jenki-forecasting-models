@@ -33,11 +33,11 @@ EVAL_WINDOW = 14
 # changepoint_prior_scale: Prophet trend flexibility (default 0.05). Higher = more adaptive trend.
 # extra_regressors: location-specific features added on top of ALL_REGRESSORS.
 MODEL_CONFIG: dict[str, dict] = {
-    "battersea":     {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"]},
+    "battersea":     {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7},
     "borough":       {"changepoint_prior_scale": 0.1, "extra_regressors": ["rainy_day", "precip_sq", "network_momentum"]},
-    "canary_wharf":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"]},
+    "canary_wharf":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7},
     "covent_garden": {"changepoint_prior_scale": 0.1, "log_y": True, "extra_regressors": ["network_momentum"]},
-    "spitalfields":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"]},
+    "spitalfields":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7},
 }
 
 
@@ -103,11 +103,13 @@ def _apply_log_y(df: pd.DataFrame) -> pd.DataFrame:
 def train_location(location: str) -> None:
     logger.info(f"=== {location} ===")
     df = load_training_data(location)
-    log_y = MODEL_CONFIG.get(location, {}).get("log_y", False)
+    cfg   = MODEL_CONFIG.get(location, {})
+    log_y = cfg.get("log_y", False)
+    ew    = cfg.get("eval_window", EVAL_WINDOW)
 
     n = len(df)
-    # Require at least 90 days so the train slice (n - 2*EVAL_WINDOW) has 60+ days.
-    can_split = n >= 90
+    # Require enough days so the train slice (n - 2*ew) has a reasonable amount of data.
+    can_split = n >= (ew * 2 + 30)
 
     if not can_split:
         logger.info(f"{location}: only {n} days — training on full dataset")
@@ -116,9 +118,9 @@ def train_location(location: str) -> None:
         model.fit(fit_df)
         logger.info(f"{location} in-sample metrics: {_evaluate(model, df, log_y, location)}")
     else:
-        test_df  = df.iloc[-EVAL_WINDOW:]
-        val_df   = df.iloc[-(EVAL_WINDOW * 2):-EVAL_WINDOW]
-        train_df = df.iloc[:-(EVAL_WINDOW * 2)]
+        test_df  = df.iloc[-ew:]
+        val_df   = df.iloc[-(ew * 2):-ew]
+        train_df = df.iloc[:-(ew * 2)]
 
         logger.info(
             f"{location}: train={len(train_df)}d, val={len(val_df)}d, test={len(test_df)}d"

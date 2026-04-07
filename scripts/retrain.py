@@ -292,15 +292,17 @@ def _retrain_and_validate(location: str, df: pd.DataFrame) -> tuple[dict, float]
     Retrain on all data and evaluate on the held-out test window.
     Returns (model_artifact, test_mape).
     """
-    log_y = MODEL_CONFIG.get(location, {}).get("log_y", False)
+    cfg   = MODEL_CONFIG.get(location, {})
+    log_y = cfg.get("log_y", False)
     regs  = _regressors(location)
     n     = len(df)
+    ew    = cfg.get("eval_window", EVAL_WINDOW)
 
     # Holdout eval
-    test_df  = df.iloc[-EVAL_WINDOW:]
-    val_df   = df.iloc[-(EVAL_WINDOW * 2):-EVAL_WINDOW]
-    tv_df    = df.iloc[-(EVAL_WINDOW * 2):]
-    train_df = df.iloc[:-(EVAL_WINDOW * 2)]
+    test_df  = df.iloc[-ew:]
+    val_df   = df.iloc[-(ew * 2):-ew]
+    tv_df    = df.iloc[-(ew * 2):]
+    train_df = df.iloc[:-(ew * 2)]
 
     m_test = _build_model(location)
     fit_tv = pd.concat([train_df, val_df]).reset_index(drop=True).copy()
