@@ -2,7 +2,7 @@
 Production inference — generate revenue forecasts for all Jenki locations.
 
 Horizon: 14 days for Borough + Covent Garden, 7 days for Battersea / Canary Wharf / Spitalfields.
-Output:  gs://jenki-forecast/{location}/forecast_{YYYY-MM-DD}.csv
+Output:  gs://jenki-forecast/{LOCATION_ID}-{DDMMYY}.csv
 Columns: date, predicted_revenue, lower_95, upper_95
 
 Usage:
@@ -32,6 +32,14 @@ logger = get_logger(__name__)
 
 MODEL_DIR  = Path("models")
 GCS_BUCKET = "gs://jenki-forecast"
+
+LOCATION_IDS: dict[str, str] = {
+    "battersea":     "L6GF6Z26CV7BM",
+    "borough":       "LWVAYYMFT3XKP",
+    "canary_wharf":  "LQ4TFTDQYXY3D",
+    "covent_garden": "LZX5X6V4QY6MJ",
+    "spitalfields":  "LK2EMH64185DE",
+}
 
 FORECAST_HORIZON: dict[str, int] = {
     "borough":       14,
@@ -211,8 +219,9 @@ def run_forecast(location: str, model_dir: Path | None = None) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 
 def upload_forecast(location: str, df: pd.DataFrame) -> str:
-    run_date = date.today().strftime("%Y-%m-%d")
-    uri = f"{GCS_BUCKET}/{location}/forecast_{run_date}.csv"
+    loc_id = LOCATION_IDS[location]
+    run_date = date.today().strftime("%d%m%y")
+    uri = f"{GCS_BUCKET}/{loc_id}-{run_date}.csv"
     upload_bytes(df.to_csv(index=False).encode(), uri, content_type="text/csv")
     logger.info(f"Uploaded → {uri}")
     return uri

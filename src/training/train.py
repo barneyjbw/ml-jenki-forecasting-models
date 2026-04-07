@@ -33,11 +33,11 @@ EVAL_WINDOW = 14
 # changepoint_prior_scale: Prophet trend flexibility (default 0.05). Higher = more adaptive trend.
 # extra_regressors: location-specific features added on top of ALL_REGRESSORS.
 MODEL_CONFIG: dict[str, dict] = {
-    "battersea":     {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7},
+    "battersea":     {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
     "borough":       {"changepoint_prior_scale": 0.1, "extra_regressors": ["rainy_day", "precip_sq", "network_momentum"]},
-    "canary_wharf":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7},
+    "canary_wharf":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
     "covent_garden": {"changepoint_prior_scale": 0.1, "log_y": True, "extra_regressors": ["network_momentum"]},
-    "spitalfields":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7},
+    "spitalfields":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
 }
 
 
@@ -64,10 +64,10 @@ def _build_model(location: str) -> Prophet:
     cps = cfg.get("changepoint_prior_scale", 0.05)
     model = Prophet(
         holidays=_uk_holidays_df(location=location),
-        yearly_seasonality=True,
+        yearly_seasonality=cfg.get("yearly_seasonality", True),
         weekly_seasonality=True,
         daily_seasonality=False,
-        seasonality_mode="multiplicative",
+        seasonality_mode=cfg.get("seasonality_mode", "multiplicative"),
         changepoint_prior_scale=cps,
         uncertainty_samples=0,  # disable Stan sampling at predict time — CI computed empirically
     )

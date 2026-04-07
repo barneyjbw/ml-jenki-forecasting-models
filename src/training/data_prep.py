@@ -386,6 +386,19 @@ def load_training_data(location: str) -> pd.DataFrame:
     else:
         df["peer_yhat"] = 1.0
 
+    # Fill date gaps with interpolation so Prophet sees a continuous series
+    # Deduplicate dates first (keep last value for each day), then reindex
+    df = df.drop_duplicates(subset="ds", keep="last")
+    full_range = pd.date_range(df["ds"].min(), df["ds"].max(), freq="D")
+    if len(full_range) > len(df):
+        gap_days = len(full_range) - len(df)
+        logger.info(f"{location}: filling {gap_days} missing days via interpolation")
+        df = df.set_index("ds").reindex(full_range).rename_axis("ds").reset_index()
+        df["y"] = df["y"].interpolate(method="linear")
+        for col in df.columns:
+            if col not in ("ds", "y") and df[col].isnull().any():
+                df[col] = df[col].interpolate(method="linear").ffill().bfill()
+
     # Derived features
     df["temp_sq"] = (df["apparent_temperature_max"] - 15.0) ** 2
     df["rainy_day"] = (df["precipitation_sum"] > 1.0).astype(float)

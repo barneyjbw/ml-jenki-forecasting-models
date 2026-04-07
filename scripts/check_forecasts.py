@@ -16,6 +16,7 @@ from src.training.data_prep import LOCATIONS
 from src.utils.gcs import download_bytes
 from src.utils.alerts import alert_stale_forecast
 from src.utils.logging import get_logger
+from scripts.forecast import LOCATION_IDS
 
 logger = get_logger(__name__)
 
@@ -23,7 +24,9 @@ GCS_FORECAST_ROOT = "gs://jenki-forecast"
 
 
 def _forecast_exists(location: str, today: str) -> bool:
-    uri = f"{GCS_FORECAST_ROOT}/{location}/forecast_{today}.csv"
+    loc_id = LOCATION_IDS[location]
+    run_date = date.today().strftime("%d%m%y")
+    uri = f"{GCS_FORECAST_ROOT}/{loc_id}-{run_date}.csv"
     try:
         download_bytes(uri)
         return True
