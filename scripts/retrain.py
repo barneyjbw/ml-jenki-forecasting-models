@@ -362,7 +362,7 @@ def retrain_location(location: str) -> dict:
             return {"mape": new_mape, "promoted": False}
 
         # Smoke test — predict 3 days forward and check for NaN / zeros
-        _smoke_test(artifact["model"], location, regs, artifact["log_y"])
+        _smoke_test(artifact["model"], location, artifact["regressors"], artifact["log_y"])
 
         # Validation gate
         prev_mape = _get_prev_mape(location)
