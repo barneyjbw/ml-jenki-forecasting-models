@@ -368,7 +368,7 @@ def retrain_location(location: str) -> dict:
 
         # Validation gate
         prev_mape = _get_prev_mape(location)
-        if prev_mape is not None and new_mape > prev_mape + MAPE_TOLERANCE:
+        if prev_mape is not None and prev_mape > 0.0 and new_mape > prev_mape + MAPE_TOLERANCE:
             alert_validation_gate(location, new_mape, prev_mape)
             logger.warning(f"{location}: validation gate failed ({new_mape:.2f}% > {prev_mape:.2f}% + {MAPE_TOLERANCE}pp)")
             return {"mape": new_mape, "promoted": False}
