@@ -21,7 +21,7 @@ import time
 from src.training.data_prep import load_training_data, LOCATIONS
 from src.training.train import MODEL_CONFIG, _uk_holidays_df, _regressors, _build_model
 
-EVAL_WINDOW = 14
+EVAL_WINDOW_DEFAULT = 14
 OUT_DIR = Path("plots")
 
 
@@ -54,18 +54,20 @@ def _forecast_eval_window(location: str, df: pd.DataFrame):
     Returns (dates, actuals, yhat, yhat_lower, yhat_upper, label, mape_val)
     for the eval window.  Proper holdout for long-history, pseudo-test for short.
     """
-    log_y = MODEL_CONFIG.get(location, {}).get("log_y", False)
+    cfg = MODEL_CONFIG.get(location, {})
+    log_y = cfg.get("log_y", False)
+    ew = cfg.get("eval_window", EVAL_WINDOW_DEFAULT)
     regs = _regressors(location)
-    can_split = len(df) >= 90
+    can_split = len(df) >= (ew * 2 + 30)
 
     if can_split:
-        eval_df  = df.iloc[-EVAL_WINDOW:]
-        train_df = df.iloc[:-EVAL_WINDOW]
-        window_label = f"Test window  ({eval_df['ds'].iloc[0].strftime('%d %b')}–{eval_df['ds'].iloc[-1].strftime('%d %b')})"
+        eval_df  = df.iloc[-ew:]
+        train_df = df.iloc[:-ew]
+        window_label = f"Test window  ({eval_df['ds'].iloc[0].strftime('%d %b')}-{eval_df['ds'].iloc[-1].strftime('%d %b')})"
     else:
-        eval_df  = df.iloc[-EVAL_WINDOW:]
-        train_df = df.iloc[:-EVAL_WINDOW]
-        window_label = f"Last 14 days  ({eval_df['ds'].iloc[0].strftime('%d %b')}–{eval_df['ds'].iloc[-1].strftime('%d %b')})"
+        eval_df  = df.iloc[-ew:]
+        train_df = df.iloc[:-ew]
+        window_label = f"Last {ew} days  ({eval_df['ds'].iloc[0].strftime('%d %b')}-{eval_df['ds'].iloc[-1].strftime('%d %b')})"
 
     model = _build_model(location)
     fit_df = train_df.copy()

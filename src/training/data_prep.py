@@ -86,6 +86,47 @@ PRIMARY_STATION: dict[str, str] = {
     "spitalfields":  "Liverpool Street",
 }
 
+# TfL lines serving each location's primary station — used for disruption feature
+STATION_LINES: dict[str, list[str]] = {
+    "battersea":     ["northern"],
+    "borough":       ["northern", "jubilee"],
+    "canary_wharf":  ["jubilee", "elizabeth"],
+    "covent_garden": ["piccadilly"],
+    "spitalfields":  ["central", "elizabeth", "hammersmith-city", "metropolitan"],
+}
+
+# Tube strike dates (network-wide, actually went ahead).
+# Sources: Wikipedia, TimeOut, strikecalendar.co.uk.
+TUBE_STRIKE_DATES: list[str] = [
+    # 2022: RMT network-wide (pre-Jenki)
+    "2022-06-06", "2022-06-07", "2022-06-21", "2022-06-22",
+    "2022-08-19", "2022-08-20",
+    "2022-11-10", "2022-11-11", "2022-11-25",
+    # 2023: RMT network-wide (pre-Jenki)
+    "2023-03-15", "2023-03-16", "2023-03-17", "2023-03-18",
+    # 2025: Sep network-wide RMT strikes (rolling action)
+    "2025-09-05", "2025-09-06", "2025-09-07", "2025-09-08",
+    "2025-09-09", "2025-09-10", "2025-09-11", "2025-09-12",
+    # 2026: Apr network-wide (4-day week dispute)
+    "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24",
+    # 2026: May network-wide (continuation)
+    "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22",
+    # 2026: Jun network-wide (continuation)
+    "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19",
+]
+
+# Per-location strike multiplier calibrated from Sep 2025 strike data.
+# > 1.0 = revenue increases during strikes (walkable central locations)
+# < 1.0 = revenue decreases (transport-dependent locations)
+# Recalibrate after April 2026 strikes with fresh data.
+STRIKE_MULTIPLIER: dict[str, float] = {
+    "borough":       1.30,  # Sep 2025 avg ratio 1.32 - walkable, market destination
+    "covent_garden": 1.25,  # Sep 2025 avg ratio 1.39 - walkable, tourist area (conservative)
+    "canary_wharf":  0.60,  # No data yet - transport-dependent, estimate conservative drop
+    "battersea":     0.85,  # No data yet - somewhat walkable, slight negative estimate
+    "spitalfields":  0.90,  # No data yet - walkable from Liverpool St area, near-neutral
+}
+
 WEATHER_VARIABLES = [
     "apparent_temperature_max",
     "precipitation_sum",
@@ -225,6 +266,23 @@ def _get_footfall_features(location: str, dates: pd.Series) -> pd.DataFrame:
 
     return pd.DataFrame(rows)
 
+
+def _compute_disruption_flag(location: str, dates: pd.Series) -> pd.DataFrame:
+    """
+    Flag days with major transport disruptions (tube strikes).
+
+    For training: matches against known historical strike dates.
+    For inference: TfL API check in forecast.py handles future strikes.
+    """
+    strike_set = set(pd.to_datetime(MAJOR_DISRUPTION_DATES))
+    rows = [
+        {"ds": pd.Timestamp(d), "major_disruption": 1.0 if pd.Timestamp(d) in strike_set else 0.0}
+        for d in dates
+    ]
+    flagged = sum(1 for r in rows if r["major_disruption"] == 1.0)
+    if flagged:
+        logger.info(f"{location}: {flagged} training day(s) flagged as tube strike")
+    return pd.DataFrame(rows)
 
 
 def _fetch_weather(start_date: str, end_date: str, lat: float, lng: float) -> pd.DataFrame:

@@ -21,7 +21,8 @@ import requests
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from src.training.data_prep import (
-    LOCATIONS, JENKI_COORDS, WEATHER_VARIABLES,
+    LOCATIONS, JENKI_COORDS, WEATHER_VARIABLES, STATION_LINES,
+    TUBE_STRIKE_DATES, STRIKE_MULTIPLIER,
     _get_footfall_features, _load_revenue, load_training_data,
 )
 from src.training.train import _regressors, MODEL_CONFIG
@@ -84,6 +85,44 @@ def fetch_weather_forecast(start_date: str, end_date: str, lat: float, lng: floa
     df = pd.DataFrame(data)
     df["time"] = pd.to_datetime(df["time"])
     return df.rename(columns={"time": "ds"})
+
+
+def _check_tfl_strikes(location: str, dates: pd.DatetimeIndex) -> pd.DataFrame:
+    """
+    Check TfL API for upcoming strikes on relevant lines.
+    Returns a DataFrame with ds + major_disruption (0 or 1).
+
+    Only flags strikes and industrial action, not routine disruptions.
+    Falls back to 0 if the API is unreachable.
+    """
+    lines = STATION_LINES.get(location, [])
+    strike_dates = set()
+
+    for line_id in lines:
+        try:
+            url = f"https://api.tfl.gov.uk/Line/{line_id}/Status"
+            r = requests.get(url, timeout=10)
+            r.raise_for_status()
+            for line_data in r.json():
+                for status in line_data.get("lineStatuses", []):
+                    reason = (status.get("reason") or "").lower()
+                    is_strike = "strike" in reason or "industrial action" in reason
+                    if not is_strike:
+                        continue
+                    for window in status.get("validityPeriods", []):
+                        from_date = pd.Timestamp(window.get("fromDate", "")).normalize()
+                        to_date = pd.Timestamp(window.get("toDate", "")).normalize()
+                        for d in dates:
+                            if from_date <= d <= to_date:
+                                strike_dates.add(d)
+        except Exception as e:
+            logger.warning(f"{location}: TfL API check failed for {line_id} ({e}) - assuming no strike")
+
+    rows = [{"ds": d, "major_disruption": 1.0 if d in strike_dates else 0.0} for d in dates]
+    flagged = sum(1 for r in rows if r["major_disruption"] == 1.0)
+    if flagged:
+        logger.info(f"{location}: TfL strike detected on {flagged} forecast day(s)")
+    return pd.DataFrame(rows)
 
 
 def current_network_momentum(location: str) -> float:
@@ -170,6 +209,42 @@ def _empirical_bounds(
 
 
 # ---------------------------------------------------------------------------
+# Strike adjustment (post-prediction)
+# ---------------------------------------------------------------------------
+
+def _apply_strike_adjustment(
+    location: str, future: pd.DataFrame, yhat: np.ndarray
+) -> np.ndarray:
+    """
+    Check for upcoming strikes via TfL API + known strike dates.
+    Apply per-location multiplier to affected days.
+    Non-strike days are completely untouched.
+    """
+    dates = future["ds"]
+
+    # Check TfL API for live strike announcements
+    api_strikes = _check_tfl_strikes(location, dates)
+    strike_flags = api_strikes.set_index("ds")["major_disruption"]
+
+    # Also check against our known strike date list
+    known_strikes = set(pd.to_datetime(TUBE_STRIKE_DATES))
+    for d in dates:
+        if d in known_strikes:
+            strike_flags.loc[d] = 1.0
+
+    if strike_flags.sum() == 0:
+        return yhat
+
+    multiplier = STRIKE_MULTIPLIER.get(location, 1.0)
+    adjusted = yhat.copy()
+    for i, d in enumerate(dates):
+        if strike_flags.get(d, 0.0) == 1.0:
+            adjusted[i] = yhat[i] * multiplier
+            logger.info(f"{location}: {d.strftime('%Y-%m-%d')} strike adjustment applied ({multiplier:.0%} of normal)")
+    return adjusted
+
+
+# ---------------------------------------------------------------------------
 # Core inference
 # ---------------------------------------------------------------------------
 
@@ -201,6 +276,9 @@ def run_forecast(location: str, model_dir: Path | None = None) -> pd.DataFrame:
             f"{location}: model produced {nan_count} NaN prediction(s) — "
             f"likely NaN in regressors. Check weather/footfall data."
         )
+
+    # Apply strike adjustment (post-prediction, per-location multiplier)
+    yhat = _apply_strike_adjustment(location, future, yhat)
 
     lower, upper = _empirical_bounds(location, saved, yhat, future["ds"])
 
