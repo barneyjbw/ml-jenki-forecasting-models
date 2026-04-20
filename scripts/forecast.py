@@ -2,7 +2,7 @@
 Production inference — generate revenue forecasts for all Jenki locations.
 
 Horizon: 14 days for Borough + Covent Garden, 7 days for Battersea / Canary Wharf / Spitalfields.
-Output:  gs://jenki-forecast/{LOCATION_ID}-{DDMMYY}.csv
+Output:  gs://jenki-forecast/revenue-forecast/{location}/{LOCATION_ID}-daily-{DDMMYY}.csv
 Columns: date, predicted_revenue, lower_95, upper_95
 
 Usage:
@@ -299,7 +299,7 @@ def run_forecast(location: str, model_dir: Path | None = None) -> pd.DataFrame:
 def upload_forecast(location: str, df: pd.DataFrame) -> str:
     loc_id = LOCATION_IDS[location]
     run_date = date.today().strftime("%d%m%y")
-    uri = f"{GCS_BUCKET}/{loc_id}-{run_date}.csv"
+    uri = f"{GCS_BUCKET}/revenue-forecast/{location}/{loc_id}-daily-{run_date}.csv"
     upload_bytes(df.to_csv(index=False).encode(), uri, content_type="text/csv")
     logger.info(f"Uploaded → {uri}")
     return uri

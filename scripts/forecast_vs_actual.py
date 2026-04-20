@@ -78,14 +78,11 @@ def _forecast_eval_window(location: str, df: pd.DataFrame):
     future = eval_df[["ds"] + regs].copy()
     fc = model.predict(future)
 
-    if log_y:
-        yhat    = np.expm1(fc["yhat"].values)
-        yhat_lo = np.expm1(fc["yhat_lower"].values)
-        yhat_hi = np.expm1(fc["yhat_upper"].values)
-    else:
-        yhat    = fc["yhat"].values
-        yhat_lo = fc["yhat_lower"].values
-        yhat_hi = fc["yhat_upper"].values
+    yhat = np.maximum(np.expm1(fc["yhat"].values) if log_y else fc["yhat"].values, 0.0)
+    # Prophet CI disabled (uncertainty_samples=0); use ±1.5×MAE as approximate bounds
+    mae = np.mean(np.abs(eval_df["y"].values - yhat))
+    yhat_lo = np.maximum(yhat - 1.5 * mae, 0.0)
+    yhat_hi = yhat + 1.5 * mae
 
     m = _mape(eval_df["y"].values, yhat)
     return eval_df["ds"].values, eval_df["y"].values, yhat, yhat_lo, yhat_hi, window_label, m, can_split
