@@ -233,6 +233,61 @@ def _black_friday_dates(years):
         yield thanksgiving + timedelta(days=1), "Black Friday"
 
 
+def _england_school_holidays_dates(years):
+    """
+    England school holiday periods (approximate London dates).
+
+    Bank holidays (Good Friday, Easter Monday, Christmas Day, etc.) are already
+    captured by the `holidays` library — this adds the surrounding non-bank-holiday
+    school break days so Prophet learns the full 1-2 week footfall shift.
+
+    Periods covered:
+      - Easter:    2 weeks centred on Easter Sunday (Good Friday -6d to Easter Monday +7d)
+      - Christmas: Dec 21 to Jan 4 (inclusive)
+      - Half-term: Feb (3rd week), May (last week of May), Oct (last full week Oct)
+      - Summer:    Jul 22 to Sep 1
+    """
+    for y in years:
+        easter_sun = easter(y)
+        good_friday = easter_sun - timedelta(days=2)
+        easter_monday = easter_sun + timedelta(days=1)
+
+        # Easter: 6 days before Good Friday through 7 days after Easter Monday
+        for d in _daterange(good_friday - timedelta(days=6), easter_monday + timedelta(days=7)):
+            yield d, "School Holiday"
+
+        # Christmas / New Year (Dec 21 – Jan 4)
+        for d in _daterange(date(y, 12, 21), date(y + 1, 1, 4)):
+            yield d, "School Holiday"
+
+        # February half-term (3rd week of Feb, Mon–Fri)
+        feb_halfterm_start = _nth_weekday(y, 2, 0, 3)  # 3rd Monday of Feb
+        for d in _daterange(feb_halfterm_start, feb_halfterm_start + timedelta(days=4)):
+            yield d, "School Holiday"
+
+        # May half-term (last Mon of May + 4 days)
+        may_halfterm_start = _last_weekday(y, 5, 0)  # last Monday of May
+        for d in _daterange(may_halfterm_start, may_halfterm_start + timedelta(days=4)):
+            yield d, "School Holiday"
+
+        # October half-term (last full week of Oct, Mon–Fri)
+        oct_halfterm_start = _last_weekday(y, 10, 0)  # last Monday of Oct
+        for d in _daterange(oct_halfterm_start, oct_halfterm_start + timedelta(days=4)):
+            yield d, "School Holiday"
+
+        # Summer holidays (Jul 22 – Sep 1)
+        for d in _daterange(date(y, 7, 22), date(y, 9, 1)):
+            yield d, "School Holiday"
+
+
+def _daterange(start: date, end: date):
+    """Yield each date from start to end inclusive."""
+    current = start
+    while current <= end:
+        yield current
+        current += timedelta(days=1)
+
+
 # ---------------------------------------------------------------------------
 # Phase 2 additions
 # ---------------------------------------------------------------------------
@@ -286,6 +341,7 @@ LOCATION_EVENTS: dict[str, set[str]] = {
         "London Marathon",   # route passes Tower Bridge, Embankment — all central locations affected
         "Easter Sunday",     # family day, suppresses footfall like Mothering Sunday
         "Christmas Eve",     # early close (~noon), suppresses afternoon/evening trade
+        "School Holiday",    # England school holiday periods (Easter, Christmas, half-terms, summer)
         # Black Friday: removed — hurts CG (+0.19pp) with only 2 noisy training occurrences.
         # Revisit at 3+ occurrences (Nov 2026 training data).
     },
@@ -302,10 +358,13 @@ LOCATION_EVENTS: dict[str, set[str]] = {
         "London Fashion Week",      # Somerset House 200m away; 3+ occurrences in training
         "Trooping the Colour",      # Trafalgar Sq crowds; 1 occurrence (Jun 2025) — monitor coefficient
     },
-    "borough":      None,  # Opt out — 1 occurrence per annual event in 17-month window adds noise (EXP-30 confirmed)
-    "spitalfields": None,  # Too short (opens Jan 2026) — revisit at 24+ months
-    "canary_wharf": None,  # No calendar events in range; venue events via venue_events.py cache
-    "battersea":    None,  # Too short (opens Jan 2026) — revisit at 24+ months
+    # School holidays only — annual events still too noisy at 17-month history (EXP-30)
+    "borough":      {"School Holiday"},
+    # School holidays only — no calendar events otherwise; venue events via venue_events.py cache
+    "canary_wharf": {"School Holiday"},
+    # Too short (opens Jan 2026): only strong universals via _ALWAYS_ON, no School Holiday
+    "spitalfields": None,
+    "battersea":    None,
 }
 
 
@@ -348,12 +407,13 @@ def get_london_events_df(years, location: str | None = None) -> pd.DataFrame:
         # Phase 2
         _london_fashion_week_dates,
         _trooping_the_colour_dates,
+        _england_school_holidays_dates,
     ]
 
     # ---- Phase 1: algorithmic social calendar ----
     # None value in LOCATION_EVENTS = opt out of 1-occurrence social calendar events.
     # Strong universal suppressors/uplifts (Easter Sunday, Black Friday) always apply.
-    _ALWAYS_ON = {"Easter Sunday", "Christmas Eve"}
+    _ALWAYS_ON = {"Easter Sunday", "Christmas Eve"}  # short-history: no School Holiday
 
     if location is not None:
         loc_events = LOCATION_EVENTS.get(location, set())
