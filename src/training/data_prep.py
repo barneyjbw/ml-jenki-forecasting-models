@@ -8,10 +8,12 @@ Final feature set per location:
 """
 
 import io
+import json
 import os
 import re
 import glob
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import lru_cache
 
 import requests
@@ -48,6 +50,18 @@ GCS_LOCATIONS: dict[str, str] = {
     "canary_wharf":  f"{GCS_SOURCE_ROOT}/Revel Data - Canary Wharf",
     "covent_garden": f"{GCS_SOURCE_ROOT}/Revel Data - Covent Garden",
     "spitalfields":  f"{GCS_SOURCE_ROOT}/Revel Data - Spitalfields",
+}
+
+# Square POS — replaces Revel from Sep 2025 onwards.
+# gs://bombe-456310-square-data/bronze/square/{MERCHANT_ID}/{DATE}/orders.json
+SQUARE_MERCHANT_ID  = "ML89BZDY4WAA1"
+GCS_SQUARE_ROOT     = "gs://bombe-456310-square-data/bronze/square"
+SQUARE_LOCATION_IDS: dict[str, str] = {
+    "battersea":     "L6GF6Z26CV7BM",
+    "borough":       "LWVAYYMFT3XKP",
+    "canary_wharf":  "LQ4TFTDQYXY3D",
+    "covent_garden": "LZX5X6V4QY6MJ",
+    "spitalfields":  "LK2EMH64185DE",
 }
 
 # Truncate training data from this date onwards (inclusive).
@@ -267,23 +281,6 @@ def _get_footfall_features(location: str, dates: pd.Series) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def _compute_disruption_flag(location: str, dates: pd.Series) -> pd.DataFrame:
-    """
-    Flag days with major transport disruptions (tube strikes).
-
-    For training: matches against known historical strike dates.
-    For inference: TfL API check in forecast.py handles future strikes.
-    """
-    strike_set = set(pd.to_datetime(MAJOR_DISRUPTION_DATES))
-    rows = [
-        {"ds": pd.Timestamp(d), "major_disruption": 1.0 if pd.Timestamp(d) in strike_set else 0.0}
-        for d in dates
-    ]
-    flagged = sum(1 for r in rows if r["major_disruption"] == 1.0)
-    if flagged:
-        logger.info(f"{location}: {flagged} training day(s) flagged as tube strike")
-    return pd.DataFrame(rows)
-
 
 def _fetch_weather(start_date: str, end_date: str, lat: float, lng: float) -> pd.DataFrame:
     url = "https://archive-api.open-meteo.com/v1/archive"
@@ -318,13 +315,128 @@ def _fetch_weather(start_date: str, end_date: str, lat: float, lng: float) -> pd
     return df.rename(columns={"time": "ds"})
 
 
-def _load_revenue(location: str) -> pd.DataFrame:
-    files = _list_csvs(location)
-    if not files:
-        source = GCS_LOCATIONS.get(location) if DATA_SOURCE == "gcs" else LOCATIONS.get(location)
-        raise FileNotFoundError(f"No CSV files found for '{location}' in {source}")
+SQUARE_CACHE_URI = "gs://jenki-forecast/square-revenue-cache/daily_revenue.parquet"
 
-    rows = []
+
+def _fetch_square_dates(uris: list[str]) -> pd.DataFrame:
+    """Download and parse a list of orders.json URIs, returning (ds, location_id, revenue)."""
+    from src.utils.gcs import download_bytes as gcs_download
+
+    def _parse_one(uri: str) -> list[dict]:
+        date_str = uri.split("/")[-2]
+        try:
+            data = json.loads(gcs_download(uri))
+            rows = []
+            for o in (data.get("orders") or []):
+                if not o or o.get("state") != "COMPLETED":
+                    continue
+                loc_id = o.get("location_id")
+                tm     = o.get("total_money") or {}
+                amt    = (tm.get("amount") or 0) / 100
+                rows.append({"ds": date_str, "location_id": loc_id, "revenue": amt})
+            return rows
+        except Exception as e:
+            logger.warning(f"Square: failed to parse {uri}: {e}")
+            return []
+
+    all_rows: list[dict] = []
+    with ThreadPoolExecutor(max_workers=10) as pool:
+        for result in as_completed([pool.submit(_parse_one, u) for u in uris]):
+            all_rows.extend(result.result())
+
+    if not all_rows:
+        return pd.DataFrame(columns=["ds", "location_id", "revenue"])
+    df = pd.DataFrame(all_rows)
+    df["ds"] = pd.to_datetime(df["ds"])
+    return df.groupby(["ds", "location_id"], as_index=False)["revenue"].sum()
+
+
+@lru_cache(maxsize=1)
+def _load_square_all_locations() -> pd.DataFrame:
+    """
+    Return daily Square revenue for all Jenki locations as (ds, location_id, revenue).
+
+    Strategy:
+    - Load a GCS parquet cache of previously aggregated data (fast).
+    - Find any new date directories since the cache was last built.
+    - Download and append only the new dates (typically 1-2 per daily run).
+    - Persist the updated cache back to GCS.
+
+    This means the first cold-cache run downloads everything (~200 files),
+    and subsequent daily runs download just 1-2 new files.
+    """
+    from src.utils.gcs import list_blobs, download_bytes as gcs_download, upload_bytes
+
+    # --- Load existing cache ---
+    cached: pd.DataFrame | None = None
+    try:
+        raw = gcs_download(SQUARE_CACHE_URI)
+        cached = pd.read_parquet(io.BytesIO(raw))
+        cached["ds"] = pd.to_datetime(cached["ds"])
+        logger.info(f"Square: cache loaded ({len(cached)} rows, up to {cached['ds'].max().date()})")
+    except Exception:
+        logger.info("Square: no cache found — fetching all dates")
+
+    # --- Find new dates not in cache ---
+    prefix    = f"{GCS_SQUARE_ROOT}/{SQUARE_MERCHANT_ID}/"
+    all_uris  = [u for u in list_blobs(prefix) if u.endswith("/orders.json")]
+    if cached is not None:
+        max_cached = cached["ds"].max()
+        new_uris = [u for u in all_uris if pd.Timestamp(u.split("/")[-2]) > max_cached]
+    else:
+        new_uris = all_uris
+    logger.info(f"Square: downloading {len(new_uris)} new date(s)")
+
+    # --- Fetch new data ---
+    if new_uris:
+        new_df = _fetch_square_dates(new_uris)
+        if cached is not None and not new_df.empty:
+            combined = pd.concat([cached, new_df], ignore_index=True)
+        elif not new_df.empty:
+            combined = new_df
+        else:
+            combined = cached if cached is not None else pd.DataFrame(
+                columns=["ds", "location_id", "revenue"]
+            )
+        # Deduplicate and sort
+        combined = (
+            combined.drop_duplicates(["ds", "location_id"])
+            .sort_values("ds")
+            .reset_index(drop=True)
+        )
+        # Persist updated cache
+        try:
+            buf = io.BytesIO()
+            combined.to_parquet(buf, index=False)
+            upload_bytes(buf.getvalue(), SQUARE_CACHE_URI, "application/octet-stream")
+            logger.info(f"Square: cache saved ({len(combined)} rows, up to {combined['ds'].max().date()})")
+        except Exception as e:
+            logger.warning(f"Square: failed to save cache: {e}")
+        return combined
+
+    return cached if cached is not None else pd.DataFrame(columns=["ds", "location_id", "revenue"])
+
+
+def _load_square_revenue(location: str) -> pd.DataFrame:
+    """Return daily Square revenue (ds, y) for a single Jenki location."""
+    loc_id  = SQUARE_LOCATION_IDS[location]
+    all_rev = _load_square_all_locations()
+    if all_rev.empty:
+        return pd.DataFrame(columns=["ds", "y"])
+    return (
+        all_rev[all_rev["location_id"] == loc_id][["ds", "revenue"]]
+        .rename(columns={"revenue": "y"})
+        .sort_values("ds")
+        .reset_index(drop=True)
+    )
+
+
+def _load_revenue(location: str) -> pd.DataFrame:
+    # ------------------------------------------------------------------
+    # Revel (historical, local CSVs or GCS bucket)
+    # ------------------------------------------------------------------
+    files = _list_csvs(location)
+    revel_rows: list[dict] = []
     failed = 0
     for f in files:
         date_str = _extract_date(Path(f).name)
@@ -334,20 +446,49 @@ def _load_revenue(location: str) -> pd.DataFrame:
             df = _read_csv(f)
             if "Total Sales" not in df.columns:
                 raise ValueError(f"Missing 'Total Sales' column — got: {list(df.columns[:5])}")
-            revenue = df["Total Sales"].sum()
-            rows.append({"ds": date_str, "y": revenue})
+            revel_rows.append({"ds": date_str, "y": df["Total Sales"].sum()})
         except Exception as e:
             logger.warning(f"Skipping {f}: {e}")
             failed += 1
 
-    if failed and len(files) > 0 and failed / len(files) > 0.2:
+    if failed and files and failed / len(files) > 0.2:
         logger.warning(
-            f"{location}: {failed}/{len(files)} CSV files failed to parse "
-            f"— possible Revel format change"
+            f"{location}: {failed}/{len(files)} Revel CSV files failed to parse "
+            f"— possible format change"
         )
 
-    daily = pd.DataFrame(rows)
-    daily["ds"] = pd.to_datetime(daily["ds"])
+    revel = pd.DataFrame(revel_rows)
+    if not revel.empty:
+        revel["ds"] = pd.to_datetime(revel["ds"])
+
+    # ------------------------------------------------------------------
+    # Square (Sep 2025 onwards) — only available in GCS mode
+    # ------------------------------------------------------------------
+    if DATA_SOURCE == "gcs":
+        square = _load_square_revenue(location)
+    else:
+        square = pd.DataFrame(columns=["ds", "y"])
+
+    # ------------------------------------------------------------------
+    # Merge: Square wins on overlap; Revel fills earlier history
+    # ------------------------------------------------------------------
+    if not square.empty and not revel.empty:
+        revel_only = revel[~revel["ds"].isin(square["ds"])]
+        daily = pd.concat([revel_only, square], ignore_index=True)
+        logger.info(
+            f"{location}: Revel ({len(revel_only)} d) + Square ({len(square)} d)"
+            f" = {len(daily)} days total"
+        )
+    elif not square.empty:
+        daily = square
+        logger.info(f"{location}: Square only ({len(daily)} days)")
+    elif not revel.empty:
+        daily = revel
+        logger.info(f"{location}: Revel only ({len(daily)} days)")
+    else:
+        source = GCS_LOCATIONS.get(location) if DATA_SOURCE == "gcs" else LOCATIONS.get(location)
+        raise FileNotFoundError(f"No revenue data found for '{location}' (checked Revel: {source} and Square)")
+
     daily = daily.sort_values("ds").reset_index(drop=True)
     before = len(daily)
     daily = daily[daily["y"] > 0].reset_index(drop=True)
