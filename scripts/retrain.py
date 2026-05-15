@@ -123,6 +123,18 @@ def _get_training_data(location: str) -> pd.DataFrame:
         save_training_parquet(location, df)
         return df
 
+    # Re-apply current config filters to the cache (TRAINING_START / EXCLUDE_DATES
+    # may have changed since the parquet was written).
+    cutoff = TRAINING_START.get(location)
+    if cutoff:
+        before = len(existing)
+        existing = existing[existing["ds"] >= pd.Timestamp(cutoff)].reset_index(drop=True)
+        if len(existing) < before:
+            logger.info(f"{location}: re-truncated cache to {cutoff} onwards ({before} -> {len(existing)} days)")
+    excluded = EXCLUDE_DATES.get(location, [])
+    if excluded:
+        existing = existing[~existing["ds"].isin(pd.to_datetime(excluded))].reset_index(drop=True)
+
     # Check whether there are new dates to append
     last_date = pd.Timestamp(existing["ds"].max())
     yesterday = pd.Timestamp(date.today() - timedelta(days=1))
