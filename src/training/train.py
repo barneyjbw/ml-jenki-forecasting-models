@@ -34,8 +34,14 @@ EVAL_WINDOW = 14
 # extra_regressors: location-specific features added on top of ALL_REGRESSORS.
 MODEL_CONFIG: dict[str, dict] = {
     "battersea":     {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
-    "borough":       {"changepoint_prior_scale": 0.1, "extra_regressors": ["rainy_day", "precip_sq", "network_momentum"]},
+    "borough":       {"changepoint_prior_scale": 0.05, "extra_regressors": ["rainy_day", "precip_sq", "network_momentum"]},
     "canary_wharf":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
+    # data_source regressor was trialled here (Exp C 2026-04-21: -8.94pp on
+    # a clean holdout) but in prod it interacts badly with _check_anomalies,
+    # which quarantines old Revel days as 4x outliers (rolling window spans
+    # Revel+Square eras). With those points stripped, Prophet fits a broken
+    # data_source coefficient and CG MAPE jumps to ~37%. Reverted 2026-04-23
+    # until the quarantine window is made era-aware.
     "covent_garden": {"changepoint_prior_scale": 0.1, "log_y": True, "extra_regressors": ["network_momentum"]},
     "spitalfields":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
 }

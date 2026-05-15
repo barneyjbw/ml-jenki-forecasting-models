@@ -33,6 +33,9 @@ logger = get_logger(__name__)
 
 MODEL_DIR  = Path("models")
 GCS_BUCKET = "gs://jenki-forecast"
+# Public customer-facing output: Revenue forecasts land under this prefix.
+# Writing here is additive to the internal jenki-forecast location.
+SALES_PRED_DAILY_ROOT = "gs://bombe-sales-predictions/jenki/location-revenue-by-day"
 
 LOCATION_IDS: dict[str, str] = {
     "battersea":     "L6GF6Z26CV7BM",
@@ -43,11 +46,11 @@ LOCATION_IDS: dict[str, str] = {
 }
 
 FORECAST_HORIZON: dict[str, int] = {
-    "borough":       14,
-    "covent_garden": 14,
-    "battersea":      7,
-    "canary_wharf":   7,
-    "spitalfields":   7,
+    "borough":       28,
+    "covent_garden": 28,
+    "battersea":     28,
+    "canary_wharf":  28,
+    "spitalfields":  28,
 }
 
 
@@ -56,12 +59,21 @@ FORECAST_HORIZON: dict[str, int] = {
 # ---------------------------------------------------------------------------
 
 def fetch_weather_forecast(start_date: str, end_date: str, lat: float, lng: float) -> pd.DataFrame:
-    """Fetch daily weather from Open-Meteo forecast API (accepts recent + future dates)."""
+    """Fetch daily weather from Open-Meteo forecast API.
+
+    The forecast API only serves ~16 days ahead. For longer horizons, fetch what the
+    API supports, then extend by holding the last observed row forward. Weather-driven
+    accuracy at 17-28d horizon is dominated by seasonality anyway, so this is fine.
+    """
+    start_ts = pd.Timestamp(start_date)
+    end_ts = pd.Timestamp(end_date)
+    api_end = min(end_ts, start_ts + pd.Timedelta(days=15))  # inclusive: 16 days
+
     params = {
         "latitude":   lat,
         "longitude":  lng,
-        "start_date": start_date,
-        "end_date":   end_date,
+        "start_date": start_ts.strftime("%Y-%m-%d"),
+        "end_date":   api_end.strftime("%Y-%m-%d"),
         "daily":      ",".join(WEATHER_VARIABLES),
         "timezone":   "Europe/London",
     }
@@ -84,7 +96,18 @@ def fetch_weather_forecast(start_date: str, end_date: str, lat: float, lng: floa
 
     df = pd.DataFrame(data)
     df["time"] = pd.to_datetime(df["time"])
-    return df.rename(columns={"time": "ds"})
+    df = df.rename(columns={"time": "ds"})
+
+    # Extend past api_end by carrying the 7-day trailing mean forward.
+    if end_ts > api_end and len(df):
+        tail = df.tail(min(7, len(df)))
+        fill = {c: tail[c].mean() if df[c].dtype.kind in "fi" else tail[c].iloc[-1]
+                for c in df.columns if c != "ds"}
+        extra_dates = pd.date_range(api_end + pd.Timedelta(days=1), end_ts, freq="D")
+        extra = pd.DataFrame({"ds": extra_dates, **{k: [v] * len(extra_dates) for k, v in fill.items()}})
+        df = pd.concat([df, extra], ignore_index=True)
+
+    return df
 
 
 def _check_tfl_strikes(location: str, dates: pd.DatetimeIndex) -> pd.DataFrame:
@@ -174,6 +197,11 @@ def build_future_df(location: str, start: str, end: str, regs: list) -> pd.DataF
 
     if "peer_yhat" in regs:
         df["peer_yhat"] = 1.0
+
+    # data_source regressor (Covent Garden): future is always Square (0).
+    # See Exp C: CG -8.94pp with this regressor; other locations regress.
+    if "data_source" in regs:
+        df["data_source"] = 0
 
     return df
 
@@ -296,13 +324,37 @@ def run_forecast(location: str, model_dir: Path | None = None) -> pd.DataFrame:
 # GCS upload
 # ---------------------------------------------------------------------------
 
+LOCATION_SLUGS: dict[str, str] = {
+    "battersea":     "battersea",
+    "borough":       "borough-market",
+    "canary_wharf":  "canary-wharf",
+    "covent_garden": "covent-garden",
+    "spitalfields":  "spitalfields",
+}
+
+
 def upload_forecast(location: str, df: pd.DataFrame) -> str:
-    loc_id = LOCATION_IDS[location]
-    run_date = date.today().strftime("%d%m%y")
-    uri = f"{GCS_BUCKET}/revenue-forecast/{location}/{loc_id}-daily-{run_date}.csv"
-    upload_bytes(df.to_csv(index=False).encode(), uri, content_type="text/csv")
-    logger.info(f"Uploaded → {uri}")
-    return uri
+    """Write daily revenue forecast CSV.
+
+    Primary: gs://bombe-sales-predictions/jenki/location-revenue-by-day/{slug}/{yyyymmdd}.csv
+    Mirror:  gs://jenki-forecast/revenue-forecast/{slug}/{yyyymmdd}.csv  (internal,
+             kept for existing readers/monitors until they migrate).
+    """
+    slug = LOCATION_SLUGS.get(location, location)
+    run_date = date.today().strftime("%Y%m%d")
+    payload = df.to_csv(index=False).encode()
+
+    primary = f"{SALES_PRED_DAILY_ROOT}/{slug}/{run_date}.csv"
+    upload_bytes(payload, primary, content_type="text/csv")
+    logger.info(f"Uploaded → {primary}")
+
+    mirror = f"{GCS_BUCKET}/revenue-forecast/{slug}/{run_date}.csv"
+    try:
+        upload_bytes(payload, mirror, content_type="text/csv")
+    except Exception as e:
+        logger.warning(f"mirror upload failed ({mirror}): {e}")
+
+    return primary
 
 
 # ---------------------------------------------------------------------------

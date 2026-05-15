@@ -177,7 +177,7 @@ def _get_training_data(location: str) -> pd.DataFrame:
     lat, lng = JENKI_COORDS[location]
     new_start = new_rev["ds"].min().strftime("%Y-%m-%d")
     new_end   = new_rev["ds"].max().strftime("%Y-%m-%d")
-    weather  = _fetch_weather(new_start, new_end, lat, lng)
+    weather  = _fetch_weather(new_start, new_end, lat, lng, location=location)
     footfall = _get_footfall_features(location, new_rev["ds"])
 
     new_df = new_rev.merge(weather,  on="ds", how="left")
@@ -187,6 +187,9 @@ def _get_training_data(location: str) -> pd.DataFrame:
     # Network momentum is a smoothed 7d/28d ratio — day-to-day change is tiny.
     last_momentum = float(existing["network_momentum"].iloc[-1]) if "network_momentum" in existing.columns else 1.0
     new_df["network_momentum"] = last_momentum
+
+    # data_source: incremental rows are always Square (0) — Revel shut off 2025-10.
+    new_df["data_source"] = 0
 
     # Derived features (identical to load_training_data)
     new_df["temp_sq"]   = (new_df["apparent_temperature_max"] - 15.0) ** 2
@@ -284,6 +287,49 @@ def _smoke_test(model, location: str, regs: list, log_y: bool) -> None:
 
 
 # ---------------------------------------------------------------------------
+# SKU calibration cache
+# ---------------------------------------------------------------------------
+
+SKU_CACHE_ROOT = "gs://jenki-forecast/revenue-forecast-cache"
+
+
+def _refresh_sku_calibration_cache(
+    location: str, df: pd.DataFrame, artifact: dict, forecast_df: pd.DataFrame
+) -> None:
+    """
+    Write a daily revenue-forecast parquet for the SKU pipeline to consume.
+
+    Output: gs://jenki-forecast/revenue-forecast-cache/{location}.parquet
+    Columns: ds, revenue_forecast
+    Coverage: in-sample fit (training range) + 28-day forward forecast.
+    """
+    import io as _io
+
+    model = artifact["model"]
+    log_y = artifact.get("log_y", False)
+    regs = artifact["regressors"]
+    predict_regs = [r for r in regs if r != "major_disruption"]
+
+    # In-sample predictions for the training period
+    hist_pred = model.predict(df[["ds"] + predict_regs])
+    hist_yhat = np.expm1(hist_pred["yhat"].values) if log_y else hist_pred["yhat"].values
+    hist_yhat = np.maximum(hist_yhat, 0)
+    hist_out = pd.DataFrame({"ds": df["ds"].values, "revenue_forecast": hist_yhat})
+
+    # Forward forecast (reuse forecast_df which already has strike + bounds applied)
+    fut_out = forecast_df[["date", "predicted_revenue"]].rename(
+        columns={"date": "ds", "predicted_revenue": "revenue_forecast"}
+    )
+    fut_out["ds"] = pd.to_datetime(fut_out["ds"])
+
+    combined = pd.concat([hist_out, fut_out], ignore_index=True).sort_values("ds").reset_index(drop=True)
+    buf = _io.BytesIO()
+    combined.to_parquet(buf, index=False)
+    upload_bytes(buf.getvalue(), f"{SKU_CACHE_ROOT}/{location}.parquet", "application/octet-stream")
+    logger.info(f"{location}: refreshed SKU calibration cache ({len(combined)} days)")
+
+
+# ---------------------------------------------------------------------------
 # Retrain + validate
 # ---------------------------------------------------------------------------
 
@@ -371,6 +417,16 @@ def retrain_location(location: str) -> dict:
         if prev_mape is not None and prev_mape > 0.0 and new_mape > prev_mape + MAPE_TOLERANCE:
             alert_validation_gate(location, new_mape, prev_mape)
             logger.warning(f"{location}: validation gate failed ({new_mape:.2f}% > {prev_mape:.2f}% + {MAPE_TOLERANCE}pp)")
+            # Still run forecast with the existing (last-promoted) model so we don't lose a day.
+            try:
+                MODEL_LOCAL_DIR.mkdir(exist_ok=True)
+                current_pkl = download_bytes(_current_pkl_uri(location))
+                (MODEL_LOCAL_DIR / f"{location}.pkl").write_bytes(current_pkl)
+                forecast_df = run_forecast(location, model_dir=MODEL_LOCAL_DIR)
+                upload_forecast(location, forecast_df)
+                logger.info(f"{location}: forecast generated from previous model")
+            except Exception as e:
+                logger.error(f"{location}: fallback forecast failed — {e}")
             return {"mape": new_mape, "promoted": False}
 
         # Promote — save model and run forecast
@@ -383,6 +439,13 @@ def retrain_location(location: str) -> dict:
 
         forecast_df = run_forecast(location, model_dir=MODEL_LOCAL_DIR)
         upload_forecast(location, forecast_df)
+
+        # Refresh the SKU calibration cache: daily predictions (in-sample +
+        # 28-day forward) uploaded to a parquet the SKU pipeline reads at 06:30.
+        try:
+            _refresh_sku_calibration_cache(location, df, artifact, forecast_df)
+        except Exception as e:
+            logger.warning(f"{location}: revenue-forecast-cache refresh failed — {e}")
 
         logger.info(f"=== {location}: done (MAPE={new_mape:.2f}%, promoted) ===")
         return {"mape": new_mape, "promoted": True}
@@ -404,5 +467,17 @@ if __name__ == "__main__":
 
     locs = [args.location] if args.location else list(LOCATIONS.keys())
     results = {loc: retrain_location(loc) for loc in locs}
+
+    # Write results to GCS so the SKU job (running 30 min later) can read them
+    # for the consolidated Slack message.
+    try:
+        import io as _io
+        run_tag = date.today().isoformat()
+        results_uri = f"gs://jenki-forecast/retrain-results/revenue-{run_tag}.json"
+        upload_bytes(json.dumps(results).encode(), results_uri, "application/json")
+        logger.info(f"Wrote revenue results → {results_uri}")
+    except Exception as e:
+        logger.warning(f"Failed to write revenue results to GCS: {e}")
+
     alert_retrain_success(results)
     logger.info("Daily retrain job complete.")

@@ -98,7 +98,42 @@ def alert_retrain_success(results: dict[str, dict]) -> None:
         lines.append(f"{icon} `{loc}` — MAPE `{r['mape']:.2f}%`")
     _post({
         "text": (
-            f":repeat: *Daily retrain complete* — {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}\n"
+            f":moneybag: *Revenue retrain complete* — {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}\n"
             + "\n".join(lines)
         )
+    })
+
+
+def alert_daily_summary(
+    revenue_results: dict[str, dict] | None = None,
+    sku_results: dict[str, dict] | None = None,
+) -> None:
+    """Single consolidated message covering both forecasts (when both run in the same job)."""
+    timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    sections = []
+
+    if revenue_results:
+        lines = []
+        for loc, r in revenue_results.items():
+            icon = ":white_check_mark:" if r.get("promoted") else ":x:"
+            mape = r.get("mape", -1)
+            lines.append(f"{icon} `{loc}` — MAPE `{mape:.1f}%`")
+        sections.append(":moneybag: *Revenue model*\n" + "\n".join(lines))
+
+    if sku_results:
+        lines = []
+        for loc, r in sku_results.items():
+            if isinstance(r.get("promoted"), dict):
+                icon = ":white_check_mark:" if r["promoted"].get("1hr") else ":x:"
+                wmape = r.get("wmape", {}).get("1hr", -1)
+                n_skus = r.get("metrics", {}).get("1hr", {}).get("n_skus", 0)
+                lines.append(f"{icon} `{loc}` — WMAPE `{wmape:.1f}%` ({n_skus} SKUs)")
+        sections.append(":package: *SKU model (1hr)*\n" + "\n".join(lines))
+
+    if not sections:
+        return
+
+    _post({
+        "text": f":repeat: *Daily forecast run complete* — {timestamp}\n\n"
+                + "\n\n".join(sections)
     })

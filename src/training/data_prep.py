@@ -70,15 +70,11 @@ TRAINING_START: dict[str, str | None] = {
     "battersea":     None,
     "borough":       None,
     "canary_wharf":  None,
-    "covent_garden": None,
+    "covent_garden": "2024-09-16",  # skip soft-launch period (Aug 28/Sep 5 at £10, Sep 6-15 at opening ramp)
     "spitalfields":  "2026-01-01",
 }
 
 # Specific dates to exclude from training (anomalous days).
-# Specific dates to exclude from training (anomalous days).
-# NOTE: Anomalous days in the opening period (CG Aug 28/Sep 5 2024 at £10, Borough Aug 1 2025 at £73)
-# were tested but kept — removing them destabilises Prophet's trend/seasonality estimation
-# and causes val/test regression. Prophet averages them out rather than memorising them.
 EXCLUDE_DATES: dict[str, list[str]] = {
     "battersea": ["2026-01-18"],  # first day of trading, £10.95 revenue
 }
@@ -129,16 +125,17 @@ TUBE_STRIKE_DATES: list[str] = [
     "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19",
 ]
 
-# Per-location strike multiplier calibrated from Sep 2025 strike data.
-# > 1.0 = revenue increases during strikes (walkable central locations)
-# < 1.0 = revenue decreases (transport-dependent locations)
-# Recalibrate after April 2026 strikes with fresh data.
+# Per-location strike multiplier.
+# Sep 2025 calibration (borough 1.30, CG 1.25, CW 0.60 etc.) was wrong for the
+# Apr 2026 strike — all 5 locations dropped in revenue ~20%, likely because
+# strike coincided with Easter holidays so commuter + tourist flows both fell.
+# Unified -20% multiplier until we have enough data to re-fit per-location.
 STRIKE_MULTIPLIER: dict[str, float] = {
-    "borough":       1.30,  # Sep 2025 avg ratio 1.32 - walkable, market destination
-    "covent_garden": 1.25,  # Sep 2025 avg ratio 1.39 - walkable, tourist area (conservative)
-    "canary_wharf":  0.60,  # No data yet - transport-dependent, estimate conservative drop
-    "battersea":     0.85,  # No data yet - somewhat walkable, slight negative estimate
-    "spitalfields":  0.90,  # No data yet - walkable from Liverpool St area, near-neutral
+    "borough":       0.80,
+    "covent_garden": 0.80,
+    "canary_wharf":  0.80,
+    "battersea":     0.80,
+    "spitalfields":  0.80,
 }
 
 WEATHER_VARIABLES = [
@@ -282,37 +279,17 @@ def _get_footfall_features(location: str, dates: pd.Series) -> pd.DataFrame:
 
 
 
-def _fetch_weather(start_date: str, end_date: str, lat: float, lng: float) -> pd.DataFrame:
-    url = "https://archive-api.open-meteo.com/v1/archive"
-    params = {
-        "latitude": lat,
-        "longitude": lng,
-        "start_date": start_date,
-        "end_date": end_date,
-        "daily": ",".join(WEATHER_VARIABLES),
-        "timezone": "Europe/London",
-    }
+def _fetch_weather(start_date: str, end_date: str, lat: float, lng: float, location: str | None = None) -> pd.DataFrame:
+    """Fetch daily weather, going through the GCS-backed cache.
 
-    @retry(
-        retry=retry_if_exception_type(Exception),
-        wait=wait_exponential(multiplier=1, min=5, max=60),
-        stop=stop_after_attempt(3),
-        reraise=True,
-    )
-    def _get():
-        r = requests.get(url, params=params, timeout=30)
-        r.raise_for_status()
-        return r.json()
+    The location arg lets the cache key per location so repeat retrains
+    only call Open-Meteo for the tail of newly-observed days.
+    """
+    from src.training.weather_cache import fetch_weather as _cached_fetch
 
-    data = _get()["daily"]
-    df = pd.DataFrame(data)
-
-    missing_cols = [c for c in WEATHER_VARIABLES if c not in df.columns]
-    if missing_cols:
-        raise ValueError(f"Weather API response missing expected columns: {missing_cols}")
-
-    df["time"] = pd.to_datetime(df["time"])
-    return df.rename(columns={"time": "ds"})
+    # Fall back to a coord-derived pseudo-location if caller didn't supply one.
+    loc = location or f"coord_{lat:.4f}_{lng:.4f}"
+    return _cached_fetch(start_date, end_date, lat, lng, WEATHER_VARIABLES, loc)
 
 
 SQUARE_CACHE_URI = "gs://jenki-forecast/square-revenue-cache/daily_revenue.parquet"
@@ -460,6 +437,7 @@ def _load_revenue(location: str) -> pd.DataFrame:
     revel = pd.DataFrame(revel_rows)
     if not revel.empty:
         revel["ds"] = pd.to_datetime(revel["ds"])
+        revel["data_source"] = 1  # 1 = Revel
 
     # ------------------------------------------------------------------
     # Square (Sep 2025 onwards) — only available in GCS mode
@@ -468,6 +446,9 @@ def _load_revenue(location: str) -> pd.DataFrame:
         square = _load_square_revenue(location)
     else:
         square = pd.DataFrame(columns=["ds", "y"])
+    if not square.empty:
+        square = square.copy()
+        square["data_source"] = 0  # 0 = Square
 
     # ------------------------------------------------------------------
     # Merge: Square wins on overlap; Revel fills earlier history
@@ -555,7 +536,7 @@ def load_training_data(location: str) -> pd.DataFrame:
 
     lat, lng = JENKI_COORDS[location]
     logger.info(f"{location}: fetching weather {start} to {end}")
-    weather = _fetch_weather(start, end, lat, lng)
+    weather = _fetch_weather(start, end, lat, lng, location=location)
 
     footfall = _get_footfall_features(location, revenue["ds"])
     network  = _compute_network_momentum(location, revenue["ds"])
@@ -657,6 +638,13 @@ def load_training_parquet(location: str) -> pd.DataFrame | None:
         data = download_bytes(uri)
         df = pd.read_parquet(io.BytesIO(data))
         logger.info(f"{location}: loaded training parquet ({len(df)} rows, up to {df['ds'].max().date()})")
-        return df
     except Exception:
         return None
+
+    # Back-fill data_source for caches written before the Revel/Square flag was added.
+    # Square went live 2025-09-01; earlier days are Revel.
+    if "data_source" not in df.columns:
+        cutoff = pd.Timestamp("2025-09-01")
+        df["data_source"] = (df["ds"] < cutoff).astype(int)
+        logger.info(f"{location}: back-filled data_source on legacy parquet cache")
+    return df

@@ -16,17 +16,18 @@ from src.training.data_prep import LOCATIONS
 from src.utils.gcs import download_bytes
 from src.utils.alerts import alert_stale_forecast
 from src.utils.logging import get_logger
-from scripts.forecast import LOCATION_IDS
+from scripts.forecast import LOCATION_SLUGS
 
 logger = get_logger(__name__)
 
-GCS_FORECAST_ROOT = "gs://jenki-forecast"
+# Authoritative output path (matches upload_forecast primary).
+FORECAST_ROOT = "gs://bombe-sales-predictions/jenki/location-revenue-by-day"
 
 
 def _forecast_exists(location: str, today: str) -> bool:
-    loc_id = LOCATION_IDS[location]
-    run_date = date.today().strftime("%d%m%y")
-    uri = f"{GCS_FORECAST_ROOT}/{loc_id}-{run_date}.csv"
+    slug = LOCATION_SLUGS.get(location, location)
+    run_date = date.today().strftime("%Y%m%d")
+    uri = f"{FORECAST_ROOT}/{slug}/{run_date}.csv"
     try:
         download_bytes(uri)
         return True
