@@ -33,9 +33,14 @@ EVAL_WINDOW = 14
 # changepoint_prior_scale: Prophet trend flexibility (default 0.05). Higher = more adaptive trend.
 # extra_regressors: location-specific features added on top of ALL_REGRESSORS.
 MODEL_CONFIG: dict[str, dict] = {
-    "battersea":     {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
+    # Short-history locations (<200 training days) use a stripped regressor set
+    # to avoid pathological multicollinear fits. Full set has been observed to
+    # produce trend ±£28k offset by regressors ±£26k — collapses to zero or
+    # spikes wildly under small data changes. See scripts/_regressor_experiment.py
+    # (2026-05-15): variant B was -7pp on Battersea MAPE vs current.
+    "battersea":     {"changepoint_prior_scale": 0.05, "extra_regressors": ["network_momentum"], "regressors_override": ["apparent_temperature_max", "precipitation_sum", "footfall_actual", "footfall_yoy"], "regressor_prior_scale": 1.0, "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
     "borough":       {"changepoint_prior_scale": 0.05, "extra_regressors": ["rainy_day", "precip_sq", "network_momentum"]},
-    "canary_wharf":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
+    "canary_wharf":  {"changepoint_prior_scale": 0.05, "extra_regressors": ["network_momentum"], "regressors_override": ["apparent_temperature_max", "precipitation_sum", "footfall_actual", "footfall_yoy"], "regressor_prior_scale": 1.0, "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
     # data_source regressor was trialled here (Exp C 2026-04-21: -8.94pp on
     # a clean holdout) but in prod it interacts badly with _check_anomalies,
     # which quarantines old Revel days as 4x outliers (rolling window spans
@@ -43,7 +48,7 @@ MODEL_CONFIG: dict[str, dict] = {
     # data_source coefficient and CG MAPE jumps to ~37%. Reverted 2026-04-23
     # until the quarantine window is made era-aware.
     "covent_garden": {"changepoint_prior_scale": 0.1, "log_y": True, "extra_regressors": ["network_momentum"]},
-    "spitalfields":  {"changepoint_prior_scale": 0.1, "extra_regressors": ["network_momentum"], "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
+    "spitalfields":  {"changepoint_prior_scale": 0.05, "extra_regressors": ["network_momentum"], "regressors_override": ["apparent_temperature_max", "precipitation_sum", "footfall_actual", "footfall_yoy"], "regressor_prior_scale": 1.0, "eval_window": 7, "yearly_seasonality": False, "seasonality_mode": "additive"},
 }
 
 
@@ -61,13 +66,17 @@ def _uk_holidays_df(location: str | None = None) -> pd.DataFrame:
 
 
 def _regressors(location: str) -> list[str]:
-    extras = MODEL_CONFIG.get(location, {}).get("extra_regressors", [])
-    return ALL_REGRESSORS + extras
+    cfg = MODEL_CONFIG.get(location, {})
+    extras = cfg.get("extra_regressors", [])
+    # regressors_override replaces ALL_REGRESSORS entirely (extras still added)
+    base = cfg.get("regressors_override", ALL_REGRESSORS)
+    return base + extras
 
 
 def _build_model(location: str) -> Prophet:
     cfg = MODEL_CONFIG.get(location, {})
     cps = cfg.get("changepoint_prior_scale", 0.05)
+    reg_prior = cfg.get("regressor_prior_scale", 10.0)  # Prophet default = 10 (loose)
     model = Prophet(
         holidays=_uk_holidays_df(location=location),
         yearly_seasonality=cfg.get("yearly_seasonality", True),
@@ -78,7 +87,7 @@ def _build_model(location: str) -> Prophet:
         uncertainty_samples=0,  # disable Stan sampling at predict time — CI computed empirically
     )
     for reg in _regressors(location):
-        model.add_regressor(reg)
+        model.add_regressor(reg, prior_scale=reg_prior)
     return model
 
 
